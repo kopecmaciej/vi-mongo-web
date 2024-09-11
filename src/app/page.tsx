@@ -1,12 +1,10 @@
-'use client'
+"use client";
 
-import React from 'react';
-import { motion } from "framer-motion";
-import { TypewriterEffect } from "@/components/ui/typewriter-effect";
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/Footer';
+import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
+import { motion } from "framer-motion";
 
 const words = [
   {
@@ -19,14 +17,13 @@ const words = [
     text: "with",
   },
   {
-    text: "Vi-Mongo",
+    text: "Vi Mongo",
   },
 ];
 
 const MainPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
       <main className="flex-grow container mx-auto px-4 py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -44,21 +41,12 @@ const MainPage = () => {
               <a href="#features">Features</a>
             </Button>
             <Button asChild variant="outline">
-              <a href="https://github.com/kopecmaciej/vi-mongo#installation">Install</a>
+              <a href="https://github.com/kopecmaciej/vi-mongo#installation">
+                Install
+              </a>
             </Button>
           </div>
         </motion.div>
-        
-        <section id="features" className="mt-16">
-          <h2 className="text-2xl font-bold mb-4">Key Features</h2>
-          <ul className="list-disc list-inside space-y-2">
-            <li>Intuitive Navigation for MongoDB databases</li>
-            <li>Document Management: View, create, update, duplicate, and delete</li>
-            <li>Collection Management: Create and delete collections</li>
-            <li>Autocomplete for collection names, database names, and MongoDB commands</li>
-            <li>Query History for easy access to previous queries</li>
-          </ul>
-        </section>
       </main>
       <Footer />
     </div>

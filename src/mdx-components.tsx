@@ -1,11 +1,11 @@
 import type { MDXComponents } from 'mdx/types'
+import Image from 'next/image';
+import { Button } from "@/components/ui/button";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    h1: ({ children }) => <h1 className="text-4xl font-bold mb-4">{children}</h1>,
-    h2: ({ children }) => <h2 className="text-3xl font-semibold mb-3">{children}</h2>,
-    p: ({ children }) => <p className="mb-4">{children}</p>,
-    // Add more custom components as needed
+    img: ({ src, alt }) => <Image src={src as string} alt={alt as string} className="mb-4" />,
+    Button: ({ children, href }) => <Button asChild><a href={href}>{children}</a></Button>,
     ...components,
   }
 }

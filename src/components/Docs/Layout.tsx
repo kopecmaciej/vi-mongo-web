@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import Link from 'next/link'
+import { cn } from "@/lib/utils"
 
 const sidebar = [
   { name: 'About Vi Mongo', href: '/docs/about' },
@@ -45,7 +46,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="flex-1"
+        className="prose prose-headings:mt-8 prose-headings:font-semibold prose-headings:text-black prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-xl prose-h6:text-lg dark:prose-headings:text-white"
       >
         {children}
       </motion.main>

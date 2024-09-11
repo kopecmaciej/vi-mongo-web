@@ -21,14 +21,14 @@ export const Navbar = () => {
           <Link href="/" className="flex items-center">
             <Image src={LogoSvg} alt="Logo" width={120} height={40} />
           </Link>
+          <Link href="/showcase" className="text-gray-700 hover:text-green-600 font-medium">
+            Showcase
+          </Link>
           <Link href="/docs" className="text-gray-700 hover:text-blue-600 font-medium">
             Docs
           </Link>
         </div>
         <div className="flex items-center space-x-6">
-          <Link href="/showcase" className="text-gray-700 hover:text-green-600 font-medium">
-            Showcase
-          </Link>
           <Button
             variant="outline"
             size="icon"
