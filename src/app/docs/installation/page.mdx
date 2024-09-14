@@ -1,0 +1,27 @@
+## Installation
+
+### Using curl
+
+```bash
+curl https://api.github.com/repos/kopecmaciej/vimongo/releases/latest | jq -r '.assets[0].browser_download_url' | xargs curl -L -o vimongo
+# or if no jq installed
+# curl https://api.github.com/repos/kopecmaciej/vimongo/releases/latest | grep browser_download_url | cut -d '"' -f4 | xargs curl -L -o vimongo
+chmod +x vimongo
+sudo mv vimongo /usr/bin
+```
+
+### Using wget
+
+```bash
+wget -O - https://api.github.com/repos/kopecmaciej/vimongo/releases/latest | jq -r '.assets[0].browser_download_url' | xargs wget
+chmod +x vimongo
+sudo mv vimongo /usr/bin
+```
+
+### Using Go
+
+```bash
+git clone git@github.com:kopecmaciej/vimongo.git
+cd vimongo
+make
+```

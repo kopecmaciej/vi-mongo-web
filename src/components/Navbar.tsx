@@ -4,9 +4,9 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from "framer-motion";
 import Image from 'next/image';
-import LogoSvg from '../../assets/svg/logo-no-background.svg';
+import LogoSvg from '/assets/svg/logo-no-background.svg';
 import { Button } from "@/components/ui/button";
-import GithubSvc from '../../assets/github-mark/github-mark.svg';
+import GithubSvc from '/assets/github-mark/github-mark.svg';
 
 export const Navbar = () => {
   return (

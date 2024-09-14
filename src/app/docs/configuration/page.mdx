@@ -1,0 +1,134 @@
+# Vi Mongo Configuration Guide
+
+Vi Mongo uses a flexible configuration system that allows you to customize various aspects of the application. This guide will walk you through the different configuration files and how to modify them.
+
+## Configuration Files
+
+Vi Mongo uses three main configuration files:
+
+1. `config.yaml`: General application settings
+2. `styles.yaml`: UI styling configuration
+3. `keybindings.json`: Keyboard shortcuts configuration
+
+All configuration files are stored in the `~/.config/vimongo` directory (or the directory specified by the `XDG_CONFIG_HOME` environment variable).
+
+## General Configuration (config.yaml)
+
+The `config.yaml` file contains general settings for the application. Here's an overview of the main configuration options:
+
+```yaml
+version: "1.0.0"
+log:
+  path: "/tmp/vi-mongo.log"
+  level: "info"
+  prettyPrint: true
+debug: false
+editor:
+  command: ""
+  env: "EDITOR"
+showConnectionPage: true
+showWelcomePage: false
+currentConnection: ""
+connections:
+  - name: "Local"
+    url: "mongodb://localhost:27017"
+    host: "localhost"
+    port: 27017
+    database: "test"
+    username: ""
+    password: ""
+    timeout: 10
+```
+
+### Key Configuration Options:
+
+- `log`: Logging settings (path, level, and pretty printing)
+- `debug`: Enable/disable debug mode
+- `editor`: External editor settings
+- `showConnectionPage`: Show the connection page on startup
+- `showWelcomePage`: Show the welcome page on startup
+- `currentConnection`: The name of the current active connection
+- `connections`: List of MongoDB connections
+
+To add a new connection, you can either use the UI or manually add an entry to the `connections` list in the `config.yaml` file.
+
+## Styling Configuration (styles.yaml)
+
+The `styles.yaml` file allows you to customize the appearance of Vi Mongo. You can modify colors, symbols, and other visual elements. Here's an example of the structure:
+
+```yaml
+global:
+  backgroundColor: "#0F172A"
+  textColor: "#E2E8F0"
+  secondaryTextColor: "#FDE68A"
+  borderColor: "#387D44"
+  focusColor: "#4ADE80"
+  titleColor: "#387D44"
+  graphicsColor: "#387D44"
+
+welcome:
+  textColor: "#FDE68A"
+  formLabelColor: "#FDE68A"
+  formInputColor: "#E2E8F0"
+  formInputBackgroundColor: "#1E293B"
+
+# ... (other sections like connector, header, databases, content, etc.)
+```
+
+You can customize colors using hex color codes. Make sure to keep the YAML structure intact when modifying the file.
+
+## Keybindings Configuration (keybindings.json)
+
+The `keybindings.json` file allows you to customize keyboard shortcuts for various actions in Vi Mongo. The file is structured by different sections of the application. Here's an example:
+
+```json
+{
+  "global": {
+    "toggleFullScreenHelp": {
+      "runes": ["?"],
+      "description": "Toggle full screen help"
+    },
+    "openConnector": {
+      "keys": ["Ctrl+O"],
+      "description": "Open connector"
+    }
+  },
+  "main": {
+    "toggleFocus": {
+      "keys": ["Tab", "Backtab"],
+      "description": "Focus next view"
+    },
+    "focusDatabase": {
+      "keys": ["Ctrl+H"],
+      "description": "Focus databases"
+    }
+  },
+  // ... (other sections like database, content, queryBar, etc.)
+}
+```
+
+### Customizing Keybindings:
+
+- `keys`: An array of key combinations (e.g., "Ctrl+H", "Enter")
+- `runes`: An array of single characters (e.g., "?", "a")
+- `description`: A brief description of the action
+
+To modify a keybinding, change the `keys` or `runes` array for the desired action. Make sure to use valid key names as recognized by the application.
+
+## Applying Changes
+
+After modifying any configuration file, you need to restart Vi Mongo for the changes to take effect. The application will automatically load the updated configuration on startup.
+
+## Resetting to Defaults
+
+If you want to reset your configuration to the default settings, you can delete the configuration files from the `~/.config/vimongo` directory. The next time you start Vi Mongo, it will recreate the configuration files with default values.
+
+## Troubleshooting
+
+If you encounter any issues after modifying the configuration files, try the following steps:
+
+1. Verify that the YAML/JSON syntax is correct in the modified files.
+2. Check the application logs (default location: `/tmp/vi-mongo.log`) for any error messages.
+3. Reset to default configuration by deleting the configuration files and restarting the application.
+
+If problems persist, please open an issue on the Vi Mongo GitHub repository with details about your configuration and the encountered problem.
