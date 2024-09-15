@@ -1,5 +1,7 @@
 "use client";
 
+import { redirect } from "next/navigation";
+
 export default function DocsPage() {
-  return <div>Docs</div>;
+  redirect("/docs/introduction");
 }

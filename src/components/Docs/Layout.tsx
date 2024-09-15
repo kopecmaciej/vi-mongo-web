@@ -7,7 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import Link from 'next/link'
 
 const sidebar = [
-  { name: 'About Vi Mongo', href: '/docs/about' },
+  { name: 'Introduction', href: '/docs/introduction' },
   { name: 'Installation', href: '/docs/installation' },
   { name: 'Getting Started', href: '/docs/getting-started' },
   { name: 'Features', href: '/docs/features' },
@@ -31,7 +31,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
               <Button
                 key={item.name}
                 variant="ghost"
-                className="w-full justify-start"
+                className="w-full justify-start font-bold"
                 asChild
               >
                 <Link href={item.href}>{item.name}</Link>
