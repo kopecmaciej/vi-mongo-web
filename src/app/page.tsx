@@ -7,6 +7,9 @@ import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import InterfaceImage from "/assets/vi-mongo/interface.png";
+// Add these imports
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 const words = [
   { text: "Manage" },
@@ -18,7 +21,7 @@ const words = [
 const MainPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="flex-grow container mx-auto px-4 py-12">
+      <main className="flex-grow px-4 py-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -50,24 +53,59 @@ const MainPage = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="relative w-full max-w-4xl mx-auto rounded-lg overflow-hidden shadow-2xl"
+          className="relative w-full max-w-6xl mx-auto rounded-md overflow-hidden shadow-2xl"
         >
           <Image
             src={InterfaceImage}
             alt="Vi Mongo Interface"
-            layout="responsive"
-            className="w-full h-auto"
           />
         </motion.div>
 
         <section id="features" className="mt-24">
           <h2 className="text-3xl font-bold text-center mb-12">Key Features</h2>
-          {/* Add your features here */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <Card key={index}>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    {feature.icon}
+                    {feature.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-24">
+          <h2 className="text-3xl font-bold text-center mb-12">Trusted by [No one yet]</h2>
         </section>
       </main>
       <Footer />
     </div>
   );
 };
+
+const features = [
+  {
+    icon: "🚀",
+    title: "Fast Performance",
+    description: "Optimized for speed, Vi Mongo ensures quick database operations.",
+  },
+  {
+    icon: "🔒",
+    title: "Secure Access",
+    description: "Built-in security features to protect your MongoDB data.",
+  },
+  {
+    icon: "🖥️",
+    title: "Intuitive UI",
+    description: "User-friendly terminal interface for efficient database management.",
+  },
+  // Add more features as needed
+];
 
 export default MainPage;
