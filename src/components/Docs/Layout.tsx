@@ -11,7 +11,6 @@ const sidebar = [
   { name: 'Introduction', href: '/docs/introduction' },
   { name: 'Installation', href: '/docs/installation' },
   { name: 'Getting Started', href: '/docs/getting-started' },
-  { name: 'Features', href: '/docs/features' },
   { name: 'Usage', href: '/docs/usage' },
   { name: 'Configuration', href: '/docs/configuration' },
   { name: 'Troubleshooting', href: '/docs/troubleshooting' },

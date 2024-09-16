@@ -40,6 +40,27 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         </div>
       );
     },
+    code: ({ children }) => (
+      <code className="bg-gray-100 text-[#047097] px-1 py-0.5 rounded">
+        {children}
+      </code>
+    ),
+    hr: () => (
+      <hr className="mb-6 h-px border-0 bg-pink-100" />
+    ),
+    ul: ({ children }) => (
+      <ul className="list-disc pl-6 space-y-2 text-gray-700">{children}</ul>
+    ),
+    li: ({ children }) => (
+      <li className="text-base">{children}</li>
+    ),
+    h1: ({ children }) => (
+      <h1 className="text-3xl font-bold text-gray-800">{children}</h1>
+    ),
+    h2: ({ children }) => (
+      <h2 className="text-2xl font-semibold m-0 mb-2 text-gray-800">{children}</h2>
+    ),
     ...components,
   };
 }
+

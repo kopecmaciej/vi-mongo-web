@@ -53,12 +53,15 @@ const MainPage = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="relative w-full max-w-6xl mx-auto rounded-md overflow-hidden shadow-2xl"
+          className="relative w-full max-w-6xl mx-auto rounded-lg overflow-hidden"
         >
-          <Image
-            src={InterfaceImage}
-            alt="Vi Mongo Interface"
-          />
+          <div className="shadow-[0_0_30px_10px_rgba(0,0,0,0.3)] rounded-lg overflow-hidden">
+            <Image
+              src={InterfaceImage}
+              alt="Vi Mongo Interface"
+              className="w-full h-auto"
+            />
+          </div>
         </motion.div>
 
         <section id="features" className="mt-24">
