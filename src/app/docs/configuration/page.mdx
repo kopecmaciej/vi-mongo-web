@@ -30,6 +30,7 @@ editor:
 showConnectionPage: true
 showWelcomePage: false
 currentConnection: ""
+currentStyle: default.yaml
 connections:
   - name: "Local"
     url: "mongodb://localhost:27017"
@@ -49,6 +50,7 @@ connections:
 - `showConnectionPage`: Show the connection page on startup
 - `showWelcomePage`: Show the welcome page on startup
 - `currentConnection`: The name of the current active connection
+- `currentStyle`: The name of the file containing the current style settings
 - `connections`: List of MongoDB connections
 
 To add a new connection, you can either use the UI or manually add an entry to the `connections` list in the `config.yaml` file.
@@ -56,7 +58,9 @@ To add a new connection, you can either use the UI or manually add an entry to t
 ## Styling Configuration
 ---
 
-The `styles.yaml` file allows you to customize the appearance of Vi Mongo. You can modify colors, symbols, and other visual elements. Here's an example of the structure:
+The `styles` directory contains available styles that allow you to customize the appearance of Vi Mongo. Each style file is named after the style it represents (e.g., `default.yaml`, `dark-blue.yaml`, etc.).
+
+Here's an example of the structure for a style file:
 
 ```yaml
 global:
