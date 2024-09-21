@@ -63,8 +63,9 @@ const InstallationPage = () => {
                 <code className="language-bash">
                   {`curl -s https://api.github.com/repos/kopecmaciej/vi-mongo/releases/latest | grep "browser_download_url.*${getDownloadFileName()}" | cut -d '"' -f 4 | xargs curl -LO
 tar -xzf ${getDownloadFileName()}
-chmod +x vimongo
-sudo mv vimongo /usr/bin`}
+chmod +x vi-mongo
+sudo mv vi-mongo /usr/bin
+rm ${getDownloadFileName()}`}
                 </code>
               </Pre>
               <h4 className="font-semibold">Using wget</h4>
@@ -73,7 +74,8 @@ sudo mv vimongo /usr/bin`}
                   {`wget -qO- https://api.github.com/repos/kopecmaciej/vi-mongo/releases/latest | grep "browser_download_url.*${getDownloadFileName()}" | cut -d '"' -f 4 | xargs wget -q --show-progress &&
 tar -xzf ${getDownloadFileName()} &&
 chmod +x vi-mongo &&
-sudo mv vi-mongo /usr/bin`}
+sudo mv vi-mongo /usr/bin &&
+rm ${getDownloadFileName()}`}
                 </code>
               </Pre>
             </>
@@ -83,8 +85,9 @@ sudo mv vi-mongo /usr/bin`}
               <code className="language-bash">
                 {`curl -s https://api.github.com/repos/kopecmaciej/vi-mongo/releases/latest | grep "browser_download_url.*${getDownloadFileName()}" | cut -d '"' -f 4 | xargs curl -LO
 tar -xzf ${getDownloadFileName()}
-chmod +x vimongo
-sudo mv vimongo /usr/bin`}
+chmod +x vi-mongo
+sudo mv vi-mongo /usr/bin
+rm ${getDownloadFileName()}`}
               </code>
             </Pre>
           )}
@@ -93,7 +96,8 @@ sudo mv vimongo /usr/bin`}
               <code className="language-powershell">
                 {`Invoke-WebRequest -Uri "https://api.github.com/repos/kopecmaciej/vi-mongo/releases/latest" -OutFile "vi-mongo.zip"
 Expand-Archive -Path "vi-mongo.zip" -DestinationPath "."
-Move-Item -Path "vimongo.exe" -Destination "C:\\Program Files\\vimongo"`}
+Move-Item -Path "vi-mongo.exe" -Destination "C:\\Program Files\\vi-mongo"
+Remove-Item "vi-mongo.zip"`}
               </code>
             </Pre>
           )}

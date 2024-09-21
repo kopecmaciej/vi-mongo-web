@@ -18,14 +18,14 @@ export const Pre = ({ children }: { children: React.ReactNode }) => {
   const handleCopy = () => {
     navigator.clipboard.writeText(codeText).then(() => {
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+      setTimeout(() => setCopied(false), 2000);
     });
   };
 
   return (
     <TooltipProvider>
       <div className="relative">
-        <div className="bg-zinc-200 text-gray-700 px-4 py-2 text-sm rounded-t-lg flex justify-between items-center">
+        <div className="bg-zinc-200 text-gray-700 px-4 text-sm rounded-t-lg flex justify-between items-center">
           <span>{language}</span>
           <Tooltip>
             <div className="flex items-center">
@@ -34,7 +34,8 @@ export const Pre = ({ children }: { children: React.ReactNode }) => {
               )}
               <Button
                 onClick={handleCopy}
-                className="ml-2 bg-transparent text-gray-500 hover:text-gray-700"
+                className="bg-transparent text-gray-500 hover:bg-zinc-300"
+                size="sm"
               >
                 <Copy size={16} />
               </Button>
