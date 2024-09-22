@@ -55,7 +55,6 @@ const Pre = ({ children, theme }: { children: React.ReactNode; theme?: string })
             margin: 0,
             borderRadius: "0 0 0.375rem 0.375rem",
             padding: "1rem",
-            background: theme === "dark" ? "#1e1e1e" : "#ffffff",
           }}
         >
           {codeText}
