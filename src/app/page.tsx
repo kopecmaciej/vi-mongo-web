@@ -1,15 +1,12 @@
 "use client";
 
-import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import InterfaceImage from "/assets/vi-mongo/interface.png";
-// Add these imports
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 
 const words = [
   { text: "Manage" },
@@ -87,7 +84,6 @@ const MainPage = () => {
           <h2 className="text-3xl font-bold text-center mb-12">Trusted by [No one yet]</h2>
         </section>
       </main>
-      <Footer />
     </div>
   );
 };
