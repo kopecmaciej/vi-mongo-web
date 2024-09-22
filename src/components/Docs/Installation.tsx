@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
-import { Pre } from '@/mdx-components';
+import { ThemeAwarePre } from '@/components/ThemeAwarePre';
 
 const InstallationPage = () => {
   const [os, setOs] = useState<string>('Linux');
@@ -59,7 +59,7 @@ const InstallationPage = () => {
           {os === 'Linux' && (
             <>
               <h4 className="font-semibold">Using curl</h4>
-              <Pre>
+              <ThemeAwarePre>
                 <code className="language-bash">
                   {`curl -s https://api.github.com/repos/kopecmaciej/vi-mongo/releases/latest | grep "browser_download_url.*${getDownloadFileName()}" | cut -d '"' -f 4 | xargs curl -LO
 tar -xzf ${getDownloadFileName()}
@@ -67,9 +67,9 @@ chmod +x vi-mongo
 sudo mv vi-mongo /usr/bin
 rm ${getDownloadFileName()}`}
                 </code>
-              </Pre>
+              </ThemeAwarePre>
               <h4 className="font-semibold">Using wget</h4>
-              <Pre>
+              <ThemeAwarePre>
                 <code className="language-bash">
                   {`wget -qO- https://api.github.com/repos/kopecmaciej/vi-mongo/releases/latest | grep "browser_download_url.*${getDownloadFileName()}" | cut -d '"' -f 4 | xargs wget -q --show-progress &&
 tar -xzf ${getDownloadFileName()} &&
@@ -77,11 +77,11 @@ chmod +x vi-mongo &&
 sudo mv vi-mongo /usr/bin &&
 rm ${getDownloadFileName()}`}
                 </code>
-              </Pre>
+              </ThemeAwarePre>
             </>
           )}
           {os === 'Darwin' && (
-            <Pre>
+            <ThemeAwarePre>
               <code className="language-bash">
                 {`curl -s https://api.github.com/repos/kopecmaciej/vi-mongo/releases/latest | grep "browser_download_url.*${getDownloadFileName()}" | cut -d '"' -f 4 | xargs curl -LO
 tar -xzf ${getDownloadFileName()}
@@ -89,17 +89,17 @@ chmod +x vi-mongo
 sudo mv vi-mongo /usr/bin
 rm ${getDownloadFileName()}`}
               </code>
-            </Pre>
+            </ThemeAwarePre>
           )}
           {os === 'Windows' && (
-            <Pre>
+            <ThemeAwarePre>
               <code className="language-powershell">
                 {`Invoke-WebRequest -Uri "https://api.github.com/repos/kopecmaciej/vi-mongo/releases/latest" -OutFile "vi-mongo.zip"
 Expand-Archive -Path "vi-mongo.zip" -DestinationPath "."
 Move-Item -Path "vi-mongo.exe" -Destination "C:\\Program Files\\vi-mongo"
 Remove-Item "vi-mongo.zip"`}
               </code>
-            </Pre>
+            </ThemeAwarePre>
           )}
         </div>
       )}
