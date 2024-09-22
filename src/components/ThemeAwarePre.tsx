@@ -9,8 +9,18 @@ import { oneLight, oneDark } from "react-syntax-highlighter/dist/cjs/styles/pris
 import { Button } from "@/components/ui/button";
 
 export function ThemeAwarePre({ children, ...props }: { children: React.ReactNode }) {
-  const { theme } = useTheme();
-  return <Pre theme={theme} {...props}>{children}</Pre>;
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  return <Pre theme={resolvedTheme} {...props}>{children}</Pre>;
 }
 
 const Pre = ({ children, theme }: { children: React.ReactNode; theme?: string }) => {
@@ -50,7 +60,7 @@ const Pre = ({ children, theme }: { children: React.ReactNode; theme?: string })
         </div>
         <SyntaxHighlighter
           language={language}
-          style={theme === "dark" ? oneDark : oneLight}
+          style={theme === "light" ? oneLight : oneDark}
           customStyle={{
             margin: 0,
             borderRadius: "0 0 0.375rem 0.375rem",
