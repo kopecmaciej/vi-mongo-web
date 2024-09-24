@@ -4,6 +4,8 @@ import Image from "next/image";
 import React from "react";
 import { ThemeAwarePre } from "@/components/ThemeAwarePre";
 
+const generateId = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     img: ({ src, alt }) => (
@@ -31,11 +33,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h1: ({ children }) => (
       <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200">{children}</h1>
     ),
-    h2: ({ children }) => (
-      <h2 className="text-2xl font-semibold m-0 mb-2 text-gray-800 dark:text-gray-200">
-        {children}
-      </h2>
-    ),
+    h2: ({ children }) => {
+      const id = generateId(children as string);
+      return (
+        <h2 id={id} className="text-2xl font-semibold m-0 mb-2 text-gray-800 dark:text-gray-200">
+          {children}
+        </h2>
+      );
+    },
     ...components,
   };
 }

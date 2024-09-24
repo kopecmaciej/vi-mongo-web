@@ -1,23 +1,42 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { Home, Download, Play, Book, Settings, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react'
 
 const sidebar = [
-  { name: 'Introduction', href: '/docs/introduction' },
-  { name: 'Installation', href: '/docs/installation' },
-  { name: 'Getting Started', href: '/docs/getting-started' },
-  { name: 'Usage', href: '/docs/usage' },
-  { name: 'Configuration', href: '/docs/configuration' },
-  { name: 'Troubleshooting', href: '/docs/troubleshooting' },
+  { name: 'Introduction', href: '/docs/introduction', icon: Home },
+  { name: 'Installation', href: '/docs/installation', icon: Download },
+  { name: 'Getting Started', href: '/docs/getting-started', icon: Play },
+  { name: 'Usage', href: '/docs/usage', icon: Book },
+  { 
+    name: 'Configuration', 
+    href: '/docs/configuration', 
+    icon: Settings, 
+    children: [
+      { name: 'General Configuration', href: '/docs/configuration#general-configuration' },
+      { name: 'Styling', href: '/docs/configuration#styling-configuration' },
+      { name: 'Keybindings', href: '/docs/configuration#keybindings-configuration' }
+    ]
+  },
+  { name: 'Troubleshooting', href: '/docs/troubleshooting', icon: AlertCircle },
 ]
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
+  const [expandedSections, setExpandedSections] = useState<string[]>([])
+
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev =>
+      prev.includes(section)
+        ? prev.filter(s => s !== section)
+        : [...prev, section]
+    )
+  }
 
   return (
     <div className="container mx-auto py-10 flex">
@@ -31,21 +50,56 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
           <div className="space-y-2">
             {sidebar.map((item) => {
               const isActive = pathname === item.href
+              const Icon = item.icon
+
               return (
-                <Button
-                  key={item.name}
-                  variant={isActive ? "secondary" : "ghost"}
-                  className={`w-full justify-start text-sm ${
-                    isActive 
-                      ? 'bg-secondary text-secondary-foreground font-semibold'
-                      : 'hover:bg-secondary/50 transition-colors'
-                  }`}
-                  asChild
-                >
-                  <Link href={item.href} className="flex items-center">
-                    {item.name}
-                  </Link>
-                </Button>
+                <div key={item.name}>
+                  <Button
+                    variant={isActive ? "secondary" : "ghost"}
+                    className={`w-full justify-start text-sm ${
+                      isActive 
+                        ? 'bg-secondary text-secondary-foreground font-semibold'
+                        : 'hover:bg-secondary/50 transition-colors'
+                    }`}
+                    asChild
+                  >
+                    <Link href={item.href} className="flex items-center">
+                      <Icon className="mr-2" />
+                      {item.name}
+                      {item.children && (
+                        <button
+                          onClick={() => toggleSection(item.name)}
+                          className="ml-auto"
+                        >
+                          {expandedSections.includes(item.name) ? <ChevronUp /> : <ChevronDown />}
+                        </button>
+                      )}
+                    </Link>
+                  </Button>
+                  {item.children && expandedSections.includes(item.name) && (
+                    <div className="ml-4 space-y-1">
+                      {item.children.map((child) => {
+                        const isChildActive = pathname === child.href
+                        return (
+                          <Button
+                            key={child.name}
+                            variant={isChildActive ? "secondary" : "ghost"}
+                            className={`w-full justify-start text-sm ${
+                              isChildActive 
+                                ? 'bg-secondary text-secondary-foreground font-semibold'
+                                : 'hover:bg-secondary/50 transition-colors'
+                            }`}
+                            asChild
+                          >
+                            <Link href={child.href} className="flex items-center">
+                              {child.name}
+                            </Link>
+                          </Button>
+                        )
+                      })}
+                    </div>
+                  )}
+                </div>
               )
             })}
           </div>
