@@ -12,13 +12,12 @@ import { usePathname } from 'next/navigation';
 
 export const Navbar = () => {
   const pathname = usePathname();
-  console.log(pathname);
   return (
     <motion.nav 
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="text-foreground p-4 fixed top-0 left-0 right-0 z-50 bg-transparent"
+      className="border text-foreground p-4 fixed top-0 left-0 right-0 z-50 bg-transparent"
     >
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-6">
