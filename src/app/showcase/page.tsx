@@ -1,5 +1,5 @@
-import { Showcase } from "@/components/Showcase";
+import { NewShowcase } from "@/components/NewShowcase";
 
 export default function ShowcasePage() {
-  return <Showcase />;
+  return <NewShowcase />;
 }

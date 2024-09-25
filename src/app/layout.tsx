@@ -22,10 +22,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${roboto.className}`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <body className={`${roboto.className} min-h-screen flex flex-col relative bg-[#0b0c0f]`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          {/* Background gradient */}
+          <div className="absolute inset-0 bg-gradient-to-tl dark:from-[#16181d] from-[#ffffff] from-30% dark:via-[#13291c] dark:to-[#16181d] to-[#ffffff] to-70%"></div>
+          
           <Navbar />
-          {children}
+          <main className="flex-grow relative z-10 pt-16">
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>
