@@ -39,7 +39,7 @@ const Carousel = ({ images }: { images: Array<{ src: any; description: string; i
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <div className="bg-green-800 p-2 rounded-full mb-2">
+            <div className={`bg-green-800 p-2 rounded-full mb-2 ${index === currentIndex ? "bg-green-900" : ""}`}>
               {image.icon}
             </div>
             <p className="text-sm text-white text-center">{image.description}</p>
