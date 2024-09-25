@@ -22,6 +22,55 @@ const words = [
   { text: "Mongo" },
 ];
 
+// Move Carousel component outside of MainPage
+const Carousel = ({ images }: { images: Array<{ src: any; description: string; icon: React.ReactNode }> }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  return (
+    <div className="container flex flex-col mx-auto rounded-lg overflow-hidden">
+      <div className="flex justify-between p-4 gap-4">
+        {images.map((image, index) => (
+          <motion.button
+            key={index}
+            className={`flex flex-col border-2 border-green-950 items-center py-2 rounded-lg ${
+              index === currentIndex ? "bg-green-800" : "hover:bg-green-700"
+            } flex-1`}
+            onClick={() => setCurrentIndex(index)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <div className="bg-green-800 p-2 rounded-full mb-2">
+              {image.icon}
+            </div>
+            <p className="text-sm text-white text-center">{image.description}</p>
+          </motion.button>
+        ))}
+      </div>
+      <div className="relative h-[800px]">
+        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-background to-transparent z-10"></div>
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background to-transparent z-10"></div>
+        <AnimatePresence initial={false}>
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={images[currentIndex].src}
+              alt={`Feature ${currentIndex + 1}`}
+              objectFit="contain"
+              className="rounded-b-lg"
+            />
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+};
+
 const MainPage = () => {
   const { setTheme } = useTheme();
   const featuresRef = useRef(null);
@@ -53,54 +102,6 @@ const MainPage = () => {
       icon: <Palette className="w-6 h-6" />,
     },
   ];
-
-  const Carousel = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-
-    return (
-      <div className="container flex flex-col mx-auto rounded-lg overflow-hidden">
-        <div className="flex justify-between p-4 gap-4">
-          {images.map((image, index) => (
-            <motion.button
-              key={index}
-              className={`flex flex-col border-2 border-green-950 items-center py-2 rounded-lg ${
-                index === currentIndex ? "bg-green-800" : "hover:bg-green-700"
-              } flex-1`}
-              onClick={() => setCurrentIndex(index)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <div className="bg-green-800 p-2 rounded-full mb-2">
-                {image.icon}
-              </div>
-              <p className="text-sm text-white text-center">{image.description}</p>
-            </motion.button>
-          ))}
-        </div>
-        <div className="relative h-[800px]">
-          <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-background to-transparent z-10"></div>
-          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background to-transparent z-10"></div>
-          <AnimatePresence initial={false}>
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="absolute inset-0"
-            >
-              <Image
-                src={images[currentIndex].src}
-                alt={`Feature ${currentIndex + 1}`}
-                objectFit="contain"
-                className="rounded-b-lg"
-              />
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
-    );
-  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -145,10 +146,10 @@ const MainPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          <Carousel />
+          <Carousel images={images} />
         </motion.div>
 
-        <section ref={featuresRef} className="mt-24">
+        <section ref={featuresRef} className="mt-10">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
