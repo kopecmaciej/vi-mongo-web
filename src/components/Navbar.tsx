@@ -8,14 +8,16 @@ import LogoSvg from '/assets/logo/logo-no-background.svg';
 import { Button } from "@/components/ui/button";
 import GithubSvc from '/assets/github-mark/github-mark.svg';
 import { ThemeToggle } from './ThemeToggle';
+import { usePathname } from 'next/navigation';
 
 export const Navbar = () => {
+  const pathname = usePathname();
   return (
     <motion.nav 
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-background text-foreground shadow-md dark:shadow-none dark:border-b dark:border-gray-800 p-4"
+      className="border text-foreground p-4 fixed top-0 left-0 right-0 z-50 bg-transparent"
     >
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-6">
@@ -30,7 +32,7 @@ export const Navbar = () => {
           </Link>
         </div>
         <div className="flex items-center space-x-4">
-          <ThemeToggle />
+          {pathname.startsWith('/docs') && <ThemeToggle />}
           <Button
             variant="outline"
             size="icon"
