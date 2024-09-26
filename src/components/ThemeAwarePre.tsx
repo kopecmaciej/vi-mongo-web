@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes';
 import { Tooltip, TooltipProvider } from "@/components/ui/tooltip";
 import { Copy } from "lucide-react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { oneLight, oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { oneLight as lightTheme, coldarkDark as darkTheme } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { Button } from "@/components/ui/button";
 
 export function ThemeAwarePre({ children, ...props }: { children: React.ReactNode }) {
@@ -41,7 +41,7 @@ const Pre = ({ children, theme }: { children: React.ReactNode; theme?: string })
   return (
     <TooltipProvider>
       <div className="relative">
-        <div className="bg-zinc-200 dark:bg-zinc-800 text-gray-700 dark:text-gray-300 px-4 text-sm rounded-t-lg flex justify-between items-center">
+        <div className="bg-zinc-200 dark:bg-[#212e22] text-gray-700 dark:text-gray-300 px-4 text-sm rounded-t-lg flex justify-between items-center">
           <span>{language}</span>
           <Tooltip>
             <div className="flex items-center">
@@ -50,7 +50,7 @@ const Pre = ({ children, theme }: { children: React.ReactNode; theme?: string })
               )}
               <Button
                 onClick={handleCopy}
-                className="bg-transparent text-gray-500 hover:bg-zinc-300 dark:hover:bg-zinc-700"
+                className="bg-transparent text-green-900 hover:bg-zinc-300 dark:hover:bg-zinc-700"
                 size="sm"
               >
                 <Copy size={16} />
@@ -60,7 +60,7 @@ const Pre = ({ children, theme }: { children: React.ReactNode; theme?: string })
         </div>
         <SyntaxHighlighter
           language={language}
-          style={theme === "light" ? oneLight : oneDark}
+          style={theme === "light" ? lightTheme : darkTheme}
           customStyle={{
             margin: 0,
             borderRadius: "0 0 0.375rem 0.375rem",

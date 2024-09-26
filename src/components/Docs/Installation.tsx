@@ -29,10 +29,10 @@ const InstallationPage = () => {
       <div className="mb-4">
         <label className="block mb-2">OS:</label>
         <Select value={os} onValueChange={handleOsChange}>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[180px] dark:bg-transparent border dark:border-lime-950">
             <SelectValue placeholder="Select OS" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent >
             <SelectItem value="Darwin">macOS</SelectItem>
             <SelectItem value="Linux">Linux</SelectItem>
             <SelectItem value="Windows">Windows</SelectItem>
@@ -43,7 +43,7 @@ const InstallationPage = () => {
         <div className="mb-4">
           <label className="block mb-2">Architecture:</label>
           <Select value={arch} onValueChange={handleArchChange}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[180px] dark:bg-transparent border dark:border-lime-950">
               <SelectValue placeholder="Select Architecture" />
             </SelectTrigger>
             <SelectContent>
