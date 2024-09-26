@@ -1,0 +1,42 @@
+# Usage
+
+After installing Vi Mongo, you can run it by typing `vi-mongo` in your terminal.
+
+```bash
+vi-mongo
+```
+<br />
+
+## Key Shortcuts
+
+In any moment you can press `?` to see the help page with all available shortcuts. Keybindings are mostly inspired by [Vim](https://www.vim.org/), but some of them are costumized for efficiency.
+
+## Resizing Terminal
+
+Resizing the terminal while running Vi Mongo should work fine, as it's based on [tview](https://github.com/rivo/tview) library which is fully rezisable, but if you encounter any issues, please file an issue on [GitHub](https://github.com/kopecmaciej/vi-mongo/issues).
+
+## Configuration
+
+All configuration files will be stored in the `~/.config/vimongo` directory, but it depends on the system settings as the environment variable `XDG_CONFIG_HOME` can be set to different directories. For more information, refer to the [XDG Base Directory](https://github.com/adrg/xdg?tab=readme-ov-file#xdg-base-directory).
+
+### Configuration Files
+
+Vi Mongo uses three main configuration files:
+
+1. `config.yaml`: General application settings
+2. `[style].yaml`: UI styling configuration in the `styles` directory
+3. `keybindings.json`: Keyboard shortcuts configuration
+
+For detailed configuration instructions, visit the [Configuration Guide](/docs/configuration).
+
+## Troubleshooting
+
+If you encounter any issues while using Vi Mongo feel free to open a new issue on our [GitHub repository](https://github.com/kopecmaciej/vi-mongo/issues).
+
+## Additional Resources
+
+- [Showcase](/showcase)
+- [Installation Instructions](/docs/installation)
+- [Introduction to Vi Mongo](/docs/introduction)
+
+By following these guidelines, you should be able to effectively use Vi Mongo for your MongoDB management needs. If you have any further questions or need assistance, please refer to the documentation or reach out to me [e-mail](mailto:maciej.kopec@gmail.com).

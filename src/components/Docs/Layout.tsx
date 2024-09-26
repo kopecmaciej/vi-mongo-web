@@ -9,8 +9,7 @@ import {
   ChevronUp,
   Download,
   Home,
-  Play,
-  Settings
+  Settings,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -19,7 +18,6 @@ import React, { useState } from "react";
 const sidebar = [
   { name: "Introduction", href: "/docs/introduction", icon: Home },
   { name: "Installation", href: "/docs/installation", icon: Download },
-  { name: "Getting Started", href: "/docs/getting-started", icon: Play },
   { name: "Usage", href: "/docs/usage", icon: Book },
   {
     name: "Configuration",
