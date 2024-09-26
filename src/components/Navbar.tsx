@@ -1,14 +1,13 @@
-'use client'
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { motion } from "framer-motion";
-import Image from 'next/image';
-import LogoSvg from '/public/logo/logo-no-background.svg';
 import { Button } from "@/components/ui/button";
-import GithubSvc from '/public/github-mark/github-mark.svg';
-import { ThemeToggle } from './ThemeToggle';
-import { usePathname } from 'next/navigation';
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { ThemeToggle } from "./ThemeToggle";
+import Github from "/public/github.svg";
+import LogoSvg from "/public/logo/logo-no-background.svg";
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -22,17 +21,14 @@ export const Navbar = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [scrolled]);
 
   return (
-    <motion.nav 
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+    <div
       className={`text-foreground p-4 fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-        scrolled ? 'bg-gradient-custom-dark' : 'bg-transparent'
+        scrolled ? "bg-gradient-custom-dark" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto flex justify-between items-center">
@@ -40,31 +36,37 @@ export const Navbar = () => {
           <Link href="/" className="flex items-center">
             <Image src={LogoSvg} alt="Logo" width={120} height={40} />
           </Link>
-          <Link href="/showcase" className="text-foreground hover:text-primary font-medium">
+          <Link
+            href="/showcase"
+            className="text-foreground hover:text-primary font-medium"
+          >
             Showcase
           </Link>
-          <Link href="/docs" className="text-foreground hover:text-primary font-medium">
+          <Link
+            href="/docs"
+            className="text-foreground hover:text-primary font-medium"
+          >
             Docs
           </Link>
         </div>
         <div className="flex items-center space-x-4">
-          {pathname.startsWith('/docs') && <ThemeToggle />}
-          <Button
-            variant="outline"
-            size="icon"
-            asChild
-          >
+          {pathname.startsWith("/docs") && <ThemeToggle />}
+          <Button variant="outline" size="icon" asChild>
             <a
               href="https://github.com/kopecmaciej/vi-mongo"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image src={GithubSvc} alt="GitHub" className="h-4 w-4 dark:invert" />
+              <Image
+                src={Github}
+                alt="GitHub"
+                className="h-4 w-4 dark:invert"
+              />
               <span className="sr-only">GitHub</span>
             </a>
           </Button>
         </div>
       </div>
-    </motion.nav>
+    </div>
   );
 };

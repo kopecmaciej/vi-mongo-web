@@ -36,7 +36,7 @@ const MainPage = () => {
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.5, delay: 0.2 }}
+              transition={{ duration: 1, delay: 0.2 }}
             >
               <Image
                 src="/logo/logo-no-background.svg"
@@ -71,15 +71,7 @@ const MainPage = () => {
             </Button>
           </div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-        >
-          <Carousel />
-        </motion.div>
-
+        <Carousel />
         <section ref={featuresRef} className="mt-10">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
