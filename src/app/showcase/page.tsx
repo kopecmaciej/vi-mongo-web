@@ -1,6 +1,6 @@
 "use client";
 
-import { NewShowcase } from "@/components/NewShowcase";
+import { Showcase } from "@/components/Showcase";
 import { useTheme } from "next-themes";
 import { useEffect } from "react";
 
@@ -9,5 +9,5 @@ export default function ShowcasePage() {
   useEffect(() => {
     setTheme("dark");
   }, [setTheme]);
-  return <NewShowcase />;
+  return <Showcase />;
 }
