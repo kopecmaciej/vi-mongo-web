@@ -19,15 +19,6 @@ export const Footer = () => {
             <p className="text-sm mb-4">
               An open-source project to improve MongoDB management efficiency
             </p>
-            <p className="text-sm text-center">
-              Our mission: Empowering developers to work more efficiently with
-              MongoDB
-            </p>
-            <div className="flex space-x-4">
-              {/* Add social media icons here */}
-              {/* Example: */}
-              {/* <Link href="#"><Image src="/icons/github.svg" alt="GitHub" width={24} height={24} /></Link> */}
-            </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div>
@@ -36,7 +27,12 @@ export const Footer = () => {
                 <li>
                   <Link href="/docs">Documentation</Link>
                 </li>
-                {/* Add more documentation links */}
+                <li>
+                  <Link href="/docs/installation">Installation</Link>
+                </li>
+                <li>
+                  <Link href="/docs/configuration">Configuration</Link>
+                </li>
               </ul>
             </div>
           </div>

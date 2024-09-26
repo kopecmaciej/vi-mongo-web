@@ -5,21 +5,6 @@ const config: Config = {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
-      animation: {
-        spotlight: "spotlight 2s ease .75s 1 forwards",
-      },
-      keyframes: {
-        spotlight: {
-          "0%": {
-            opacity: "0",
-            transform: "translate(-72%, -62%) scale(0.5)",
-          },
-          "100%": {
-            opacity: "1",
-            transform: "translate(-50%,-40%) scale(1)",
-          },
-        },
-      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -67,7 +52,7 @@ const config: Config = {
         },
         "gradient-start": {
           light: "#ffffff",
-          dark: "#16181d",
+          dark: "#0b0c0b",
         },
         "gradient-middle": {
           light: "#ffffff", // Add a light version if needed
@@ -75,7 +60,7 @@ const config: Config = {
         },
         "gradient-end": {
           light: "#ffffff",
-          dark: "#16181d",
+          dark: "#0b0c0b",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
