@@ -6,7 +6,7 @@ import Link from "next/link";
 export const Footer = () => {
   return (
     <footer className=" text-white py-12 relative z-10">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="container mx-auto px-4">
         <div className="flex flex-col justify-between md:flex-row mb-8 border-t border-green-900 pt-8">
           <div className="mb-8 md:mb-0">
             <Image
