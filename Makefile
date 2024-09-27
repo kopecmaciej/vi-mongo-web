@@ -15,13 +15,7 @@ docker-build:
 	@echo "Building docker image $(REPO_NAME):$(VERSION)"
 	@docker stop $(REPO_NAME) || true
 	@docker rm $(REPO_NAME) || true
-	@docker build -t $(REPO_NAME):$(VERSION) -f $(DOCKERFILE) .
-
-docker-build-dev:
-	@echo "Building docker image $(REPO_NAME):$(VERSION)"
-	@docker stop $(REPO_NAME) || true
-	@docker rm $(REPO_NAME) || true
-	@docker build -t $(REPO_NAME):$(VERSION) -f dev.$(DOCKERFILE) .
+	@docker build --progress=plain -t $(REPO_NAME):$(VERSION) -f $(DOCKERFILE) .
 
 docker-run:
 	@echo "Running docker image $(REPO_NAME):$(VERSION)"
