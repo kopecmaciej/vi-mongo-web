@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { AlertCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -50,7 +51,15 @@ export const Navbar = () => {
           </Link>
         </div>
         <div className="flex items-center space-x-4">
-          {pathname.startsWith("/docs") && <ThemeToggle />}
+          <div className="flex items-center text-green-500">
+            <AlertCircle className="w-4 h-4 mr-1" />
+            <span className="text-sm font-medium">Alpha Version</span>
+          </div>
+          {pathname.startsWith("/docs") && (
+            <>
+              <ThemeToggle />
+            </>
+          )}
           <Button variant="outline" size="icon" asChild>
             <a
               href="https://github.com/kopecmaciej/vi-mongo"
