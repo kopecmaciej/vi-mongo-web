@@ -1,0 +1,42 @@
+name: Build and Deploy to k8s
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - 
+      name: Checkout code
+      uses: actions/checkout@v3
+    - 
+      name: Debug - Print ref
+      run: |
+        echo ${{ github.event.ref }}
+    - 
+      name: Login to private registry
+      run: |
+        echo ${{ secrets.PRIVATE_DOCKER_PASSWORD }} | docker login ${{ secrets.PRIVATE_DOCKER_REGISTRY }} -u ${{ secrets.PRIVATE_DOCKER_USERNAME }} --password-stdin
+    - 
+      name: Extract tag name
+      id: get_tag
+      run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+    - 
+      name: Build and push Docker image
+      run: |
+        docker build -t umyslmaszyny.pl/vi-mongo-web:${{ steps.get_tag.outputs.TAG }} .
+        docker push umyslmaszyny.pl/vi-mongo-web:${{ steps.get_tag.outputs.TAG }}
+  deploy:
+    runs-on: self-hosted
+    needs: build
+    steps:
+    - 
+      name: Checkout code
+      uses: actions/checkout@v3
+    - 
+      name: Deploy to k8s
+      run: |
+        kubectl apply -f k8s/deployment.yaml

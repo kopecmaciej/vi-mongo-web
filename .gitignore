@@ -37,3 +37,6 @@ next-env.d.ts
 
 private_assets
 k8s
+.env
+event.json
+
