@@ -49,6 +49,12 @@ export const Navbar = () => {
           >
             Docs
           </Link>
+          <Link
+            href="/playground"
+            className="text-foreground hover:text-primary font-medium"
+          >
+            Playground
+          </Link>
         </div>
         <div className="flex items-center space-x-4">
           <div className="flex items-center text-green-500">
