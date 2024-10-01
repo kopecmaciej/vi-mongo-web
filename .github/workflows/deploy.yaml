@@ -13,13 +13,9 @@ jobs:
       name: Checkout code
       uses: actions/checkout@v3
     - 
-      name: Debug - Print ref
-      run: |
-        echo ${{ github.event.ref }}
-    - 
       name: Login to private registry
       run: |
-        echo ${{ secrets.PRIVATE_DOCKER_PASSWORD }} | docker login ${{ secrets.PRIVATE_DOCKER_REGISTRY }} -u ${{ secrets.PRIVATE_DOCKER_USERNAME }} --password-stdin
+        docker login ${{ secrets.PRIVATE_DOCKER_REGISTRY }} -u ${{ secrets.PRIVATE_DOCKER_USERNAME }} -p ${{ secrets.PRIVATE_DOCKER_PASSWORD }}
     - 
       name: Extract tag name
       id: get_tag
@@ -37,8 +33,12 @@ jobs:
       name: Checkout code
       uses: actions/checkout@v3
     - 
-      name: Deploy to k8s
+      name: Extract tag name
+      id: get_tag
+      run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+    - 
+      name: Update deployment image
       run: |
-        kubectl apply -f k8s/deployment.yaml
+        kubectl set image deployment/vi-mongo vi-mongo=umyslmaszyny.pl/vi-mongo-web:${{ steps.get_tag.outputs.TAG }}
       env:
         KUBECONFIG: /home/runner/.kube/config
