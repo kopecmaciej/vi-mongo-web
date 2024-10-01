@@ -1,64 +1,83 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
-import { Terminal } from 'xterm';
-import { FitAddon } from 'xterm-addon-fit';
-import { io, Socket } from 'socket.io-client';
-import 'xterm/css/xterm.css';
+import React, { useState, useEffect, useRef } from 'react';
+import { Terminal } from '@xterm/xterm';
+import { FitAddon } from '@xterm/addon-fit';
+import { WebLinksAddon } from '@xterm/addon-web-links';
+import '@xterm/xterm/css/xterm.css';
 
-const Playground: React.FC = () => {
+const TerminalComponent: React.FC = () => {
   const terminalRef = useRef<HTMLDivElement>(null);
-  const socketRef = useRef<Socket | null>(null);
-  const terminalInstanceRef = useRef<Terminal | null>(null);
+  const [terminal, setTerminal] = useState<Terminal | null>(null);
+  const [socketUrl, setSocketUrl] = useState<string | null>(null);
 
   useEffect(() => {
     if (!terminalRef.current) return;
 
-    // Initialize xterm.js
-    const terminal = new Terminal();
+    const term = new Terminal({
+      cursorBlink: true,
+      theme: {
+        background: '#1e1e1e',
+      },
+    });
+
     const fitAddon = new FitAddon();
-    terminal.loadAddon(fitAddon);
-    terminal.open(terminalRef.current);
+    term.loadAddon(fitAddon);
+    term.loadAddon(new WebLinksAddon());
+
+    term.open(terminalRef.current);
     fitAddon.fit();
-    terminalInstanceRef.current = terminal;
 
-    // Connect to WebSocket server
-    const socket = io('/terminal');
-    socketRef.current = socket;
+    setTerminal(term);
 
-    socket.on('connect', () => {
-      terminal.writeln('Connected to vi-mongo playground');
-      terminal.writeln('Type "vi-mongo" to start the application');
-    });
-
-    socket.on('output', (data) => {
-      terminal.write(data);
-    });
-
-    terminal.onData((data) => {
-      socket.emit('input', data);
-    });
-
+    // Clean up
     return () => {
-      socket.disconnect();
-      terminal.dispose();
+      term.dispose();
     };
   }, []);
 
   useEffect(() => {
-    const handleResize = () => {
-      if (terminalInstanceRef.current) {
-        const fitAddon = new FitAddon();
-        terminalInstanceRef.current.loadAddon(fitAddon);
-        fitAddon.fit();
-      }
+    if (!terminal) return;
+
+    // Request a new terminal session from the server
+    fetch('/api/terminal-session', { method: 'POST' })
+      .then((res) => res.json())
+      .then((data) => setSocketUrl(data.url))
+      .catch((error) => console.error('Failed to create terminal session:', error));
+  }, [terminal]);
+
+  useEffect(() => {
+    if (!terminal || !socketUrl) return;
+
+    const socket = new WebSocket(socketUrl);
+
+    socket.onopen = () => {
+      terminal.writeln('Connected to vi-mongo. Type "help" for available commands.');
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    socket.onmessage = (event) => {
+      terminal.write(event.data);
+    };
 
-  return <div ref={terminalRef} style={{ height: '500px', width: '100%' }} />;
+    socket.onclose = () => {
+      terminal.writeln('Session terminated.');
+    };
+
+    terminal.onData((data) => {
+      socket.send(data);
+    });
+
+    // Clean up
+    return () => {
+      socket.close();
+    };
+  }, [terminal, socketUrl]);
+
+  return (
+    <div className="h-[600px] w-full bg-gray-900 rounded-lg overflow-hidden">
+      <div ref={terminalRef} className="h-full" />
+    </div>
+  );
 };
 
-export default Playground;
+export default TerminalComponent;
