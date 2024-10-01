@@ -3,42 +3,39 @@ name: Build and Deploy to k8s
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   build:
     runs-on: self-hosted
     steps:
-    - 
-      name: Checkout code
-      uses: actions/checkout@v3
-    - 
-      name: Login to private registry
-      run: |
-        docker login ${{ secrets.PRIVATE_DOCKER_REGISTRY }} -u ${{ secrets.PRIVATE_DOCKER_USERNAME }} -p ${{ secrets.PRIVATE_DOCKER_PASSWORD }}
-    - 
-      name: Extract tag name
-      id: get_tag
-      run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-    - 
-      name: Build and push Docker image
-      run: |
-        docker build -t umyslmaszyny.pl/vi-mongo-web:${{ steps.get_tag.outputs.TAG }} .
-        docker push umyslmaszyny.pl/vi-mongo-web:${{ steps.get_tag.outputs.TAG }}
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Get Docker registry credentials
+        run: |
+          echo "DOCKER_USERNAME=$(kubectl get secret docker-registry-secret -o jsonpath='{.data.proxyUsername}' | base64 -d)" >> $GITHUB_ENV
+          echo "DOCKER_PASSWORD=$(kubectl get secret docker-registry-secret -o jsonpath='{.data.proxyPassword}' | base64 -d)" >> $GITHUB_ENV
+      - name: Login to private registry
+        run: |
+          docker login https://umyslmaszyny.pl -u ${{ env.DOCKER_USERNAME }} -p ${{ env.DOCKER_PASSWORD }}
+      - name: Extract tag name
+        id: get_tag
+        run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      - name: Build and push Docker image
+        run: |
+          docker build -t umyslmaszyny.pl/vi-mongo-web:${{ steps.get_tag.outputs.TAG }} .
+          docker push umyslmaszyny.pl/vi-mongo-web:${{ steps.get_tag.outputs.TAG }}
   deploy:
     runs-on: self-hosted
     needs: build
     steps:
-    - 
-      name: Checkout code
-      uses: actions/checkout@v3
-    - 
-      name: Extract tag name
-      id: get_tag
-      run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-    - 
-      name: Update deployment image
-      run: |
-        kubectl set image deployment/vi-mongo vi-mongo=umyslmaszyny.pl/vi-mongo-web:${{ steps.get_tag.outputs.TAG }}
-      env:
-        KUBECONFIG: /home/runner/.kube/config
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Extract tag name
+        id: get_tag
+        run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      - name: Update deployment image
+        run: |
+          kubectl set image deployment/vi-mongo vi-mongo=umyslmaszyny.pl/vi-mongo-web:${{ steps.get_tag.outputs.TAG }}
+        env:
+          KUBECONFIG: /home/runner/.kube/config
