@@ -40,3 +40,5 @@ jobs:
       name: Deploy to k8s
       run: |
         kubectl apply -f k8s/deployment.yaml
+      env:
+        KUBECONFIG: /home/runner/.kube/config
