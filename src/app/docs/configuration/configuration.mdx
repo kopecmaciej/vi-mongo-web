@@ -120,7 +120,15 @@ The `keybindings.json` file allows you to customize keyboard shortcuts for vario
 - `runes`: An array of single characters (e.g., "?", "a")
 - `description`: A brief description of the action
 
-To modify a keybinding, change the `keys` or `runes` array for the desired action. Make sure to use valid key names as recognized by the application.
+### Known Keybinding Issues
+
+When configuring keybindings, be aware of some potential issues:
+
+1. **Ctrl+H**: This key combination is often interpreted as the Backspace2 (Ctrl+backspace) key in terminal environments, For this given case there is special handling in place to make it work as expected. 
+For others like **Ctrl+I** there is no special handling in place, so those keybindings won't work as expected.
+2. **Terminal Limitations**: Some key combinations might not work as expected due to limitations in certain terminal emulators. If a keybinding doesn't seem to work, try an alternative combination.
+
+If you encounter unexpected behavior with your custom keybindings, consider these potential issues and try alternative key combinations.
 
 ## Applying Changes
 
