@@ -11,6 +11,7 @@ import {
   Download,
   Home,
   Settings,
+  Map,
 } from "lucide-react";
 
 export const SidebarItems = [
@@ -33,6 +34,7 @@ export const SidebarItems = [
       },
     ],
   },
+  { name: "Roadmap", href: "/docs/roadmap", icon: Map },
 ];
 
 const Sidebar: React.FC = () => {
