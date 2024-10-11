@@ -12,9 +12,17 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Vi Mongo",
+  title: "Vi Mongo - TUI for MongoDB",
   description:
-    "Vi Mongo is a fast and efficient CLI tool for MongoDB database management, designed for developers who love to work in the terminal.",
+    "Vi Mongo is a fast and efficient TUI for MongoDB database management, designed for developers who love to work in the terminal.",
+  openGraph: {
+    title: "Vi Mongo - TUI for MongoDB",
+    description:
+      "Vi Mongo is a fast and efficient TUI for MongoDB database management, designed for developers who love to work in the terminal.",
+    url: "https://vi-mongo.com",
+    siteName: "Vi Mongo",
+    locale: "en_US",
+  },
 };
 
 export default function RootLayout({
