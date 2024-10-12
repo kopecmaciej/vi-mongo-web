@@ -1,7 +1,7 @@
 "use client";
 
-import { Carousel } from "@/components/Carousel";
-import { FeatureCard } from "@/components/FeatureCard";
+import { Carousel } from "@/components/Home/Carousel";
+import { FeatureCard } from "@/components/Home/FeatureCard";
 import { Button } from "@/components/ui/button";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";

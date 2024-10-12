@@ -33,6 +33,14 @@ For detailed configuration instructions, visit the [Configuration Guide](/docs/c
 
 If you encounter any issues while using Vi Mongo feel free to open a new issue on our [GitHub repository](https://github.com/kopecmaciej/vi-mongo/issues).
 
+Possible issues:
+
+- Keybindings not working as expected (refer to [Configuration Guide](/docs/configuration))
+- General performance issues (for very large databases and collections)
+- Regex search not working the same as in MongoDB documentation (eg, `/pattern/` will not work as expected, use `{ "$regex": "pattern", "$options": "i" }` instead). Fix listed in the [Roadmap](/docs/roadmap)
+
+
+
 ## Additional Resources
 
 - [Showcase](/showcase)

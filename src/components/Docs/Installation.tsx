@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
-import { ThemeAwarePre } from '@/components/ThemeAwarePre';
+import { ThemeAwarePre } from '@/components/Mdx/ThemeAwarePre';
 
 interface Release {
   tag_name: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import { Showcase } from "@/components/Showcase";
+import { Showcase } from "@/components/Home/Showcase";
 import { useTheme } from "next-themes";
 import { useEffect } from "react";
 
