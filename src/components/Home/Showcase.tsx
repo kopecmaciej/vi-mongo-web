@@ -5,12 +5,19 @@ import { TabsBtn, TabsContent, TabsProvider } from "@/components/ui/tab";
 import Image from "next/image";
 import { useState } from "react";
 
-import ViMongoAddConnections from "/public/gifs/vi-mongo-add-connections.gif";
-import ViMongoSortAndFilter from "/public/gifs/vi-mongo-sort-and-filter.gif";
-
 const gifs = [
-  { id: 1, src: ViMongoAddConnections, alt: "Add Connections" },
-  { id: 2, src: ViMongoSortAndFilter, alt: "Sorting and Filtering" },
+  { id: 1, src: "/gifs/vi-mongo-add-connections.gif", alt: "Add Connections" },
+  {
+    id: 2,
+    src: "/gifs/vi-mongo-sort-and-filter.gif",
+    alt: "Sorting and Filtering",
+  },
+  {
+    id: 3,
+    src: "/gifs/vi-mongo-docs-management.gif",
+    alt: "Documents Management",
+  },
+  { id: 4, src: "/gifs/vi-mongo-utils.gif", alt: "Utilities" },
 ];
 
 export const Showcase = () => {
@@ -22,7 +29,11 @@ export const Showcase = () => {
         <div className="flex justify-center mt-2">
           <div className="flex items-center w-fit p-1 rounded-md border">
             {gifs.map((gif) => (
-              <TabsBtn key={gif.id} value={gif.alt} className="hover:dark:bg-[#185330]">
+              <TabsBtn
+                key={gif.id}
+                value={gif.alt}
+                className="hover:dark:bg-[#185330]"
+              >
                 <span className="relative z-[2] uppercase">{gif.alt}</span>
               </TabsBtn>
             ))}

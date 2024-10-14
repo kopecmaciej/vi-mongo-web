@@ -1,30 +1,31 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Filter, Layout, Palette, Zap } from "lucide-react";
+import { Filter, Layout, Palette, Search, Zap } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import AutocompleteImage from "/public/vi-mongo/autocomplete.png";
-import ConnectionListImage from "/public/vi-mongo/connection-list.png";
-import InterfaceImage from "/public/vi-mongo/interface.png";
-import ThemeSwitcherImage from "/public/vi-mongo/theme-switcher.png";
 
 const images = [
   {
-    src: InterfaceImage,
+    src: "/vi-mongo/interface.png",
     description: "Intuitive interface",
     icon: <Zap className="w-6 h-6" />,
   },
   {
-    src: ConnectionListImage,
-    description: "Change and manage connections easily",
+    src: "/vi-mongo/quick-pick.png",
+    description: "Quick pick with intelligent highlighting",
+    icon: <Search className="w-6 h-6" />,
+  },
+  {
+    src: "/vi-mongo/connection-list.png",
+    description: "Manage multiple connections easily",
     icon: <Layout className="w-6 h-6" />,
   },
   {
-    src: AutocompleteImage,
+    src: "/vi-mongo/autocomplete.png",
     description: "Fast query with autocomplete",
     icon: <Filter className="w-6 h-6" />,
   },
   {
-    src: ThemeSwitcherImage,
+    src: "/vi-mongo/theme-switcher.png",
     description: "Theme Customization",
     icon: <Palette className="w-6 h-6" />,
   },
@@ -35,13 +36,13 @@ export const Carousel = () => {
 
   return (
     <div className="container flex flex-col mx-auto rounded-lg overflow-hidden">
-      <div className="flex flex-wrap justify-between p-4 gap-4">
+      <div className="flex flex-wrap justify-center p-4 gap-4">
         {images.map((image, index) => (
           <motion.button
             key={index}
             className={`flex flex-col border-2 border-green-950 items-center py-2 rounded-lg ${
               index === currentIndex ? "bg-green-800" : "hover:bg-green-700"
-            } flex-1 min-w-[120px]`}
+            } flex-1 max-w-[260px]`}
             onClick={() => setCurrentIndex(index)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

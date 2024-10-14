@@ -5,8 +5,20 @@ import { FeatureCard } from "@/components/Home/FeatureCard";
 import { Button } from "@/components/ui/button";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
+import { WobbleCard } from "@/components/ui/wobble-card";
 import { motion, useInView } from "framer-motion";
-import { Eye, Filter, Layout, Palette, Wrench, Zap } from "lucide-react";
+import {
+  Eye,
+  Filter,
+  GitBranch,
+  Keyboard,
+  Layout,
+  Palette,
+  Server,
+  Terminal,
+  Wrench,
+  Zap,
+} from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
@@ -72,6 +84,60 @@ const MainPage = () => {
           </div>
         </div>
         <Carousel />
+
+        {/* Why Vi Mongo */}
+        <section className="mt-20 mb-16">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Benefits of Vi Mongo
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto px-4">
+            <WobbleCard containerClassName="bg-[#112419] h-full">
+              <div className="flex flex-col items-center text-center">
+                <Terminal className="w-12 h-12 mb-4 text-green-500" />
+                <h3 className="text-xl font-semibold mb-2">Efficiency</h3>
+                <p className="text-sm text-gray-300">
+                  While it&apos;s not a full replacement for apps like MongoDB
+                  Compass, it&apos;s a great tool for everyday tasks.
+                </p>
+              </div>
+            </WobbleCard>
+            <WobbleCard containerClassName="bg-[#112419] h-full">
+              <div className="flex flex-col items-center text-center">
+                <Keyboard className="w-12 h-12 mb-4 text-green-500" />
+                <h3 className="text-xl font-semibold mb-2">
+                  Lightning-Fast Interactions
+                </h3>
+                <p className="text-sm text-gray-300">
+                  Terminal-based with keyboard shortcuts for rapid data entry
+                  and modifications.
+                </p>
+              </div>
+            </WobbleCard>
+            <WobbleCard containerClassName="bg-[#112419] h-full">
+              <div className="flex flex-col items-center text-center">
+                <Server className="w-12 h-12 mb-4 text-green-500" />
+                <h3 className="text-xl font-semibold mb-2">Server-Friendly</h3>
+                <p className="text-sm text-gray-300">
+                  Ideal for servers without desktop environments, ensuring
+                  seamless management anywhere.
+                </p>
+              </div>
+            </WobbleCard>
+            <WobbleCard containerClassName="bg-[#112419] h-full">
+              <div className="flex flex-col items-center text-center">
+                <GitBranch className="w-12 h-12 mb-4 text-green-500" />
+                <h3 className="text-xl font-semibold mb-2">
+                  Continuous Evolution
+                </h3>
+                <p className="text-sm text-gray-300">
+                  Actively developed with regular updates, bringing you features
+                  and improvements.
+                </p>
+              </div>
+            </WobbleCard>
+          </div>
+        </section>
+
         <section ref={featuresRef} className="mt-10">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -79,7 +145,7 @@ const MainPage = () => {
             transition={{ duration: 0.5 }}
             className="text-3xl font-bold text-center mb-12"
           >
-            Vi Mongo provides the following features:
+            Additional Features
           </motion.h2>
           <motion.div
             initial="hidden"
