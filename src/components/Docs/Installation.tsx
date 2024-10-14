@@ -96,10 +96,12 @@ const InstallationPage = () => {
             <SelectTrigger className="w-[180px] dark:bg-transparent border dark:border-lime-950">
               <SelectValue placeholder="Select Version" />
             </SelectTrigger>
-            <SelectContent>
-              {releases.map((release) => (
+            <SelectContent className="max-h-[130px] overflow-y-auto">
+              {releases.map((release, index) => (
                 <SelectItem key={release.tag_name} value={release.tag_name}>
-                  {release.tag_name} {release.prerelease ? '(Pre-release)' : ''}
+                  {release.tag_name}
+                  {release.prerelease ? ' (Pre-release)' : ''}
+                  {index === 0 && <span className="inline-flex text-green-700 text-xs ml-1">Latest</span>}
                 </SelectItem>
               ))}
             </SelectContent>
