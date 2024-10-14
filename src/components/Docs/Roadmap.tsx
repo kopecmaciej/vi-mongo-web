@@ -3,7 +3,6 @@ import { CheckCircle2, Circle } from "lucide-react";
 import React from "react";
 
 const features = [
-  { name: "Multiple tabs in main view", completed: false, priority: "high" },
   { name: "Managing Indexes", completed: false, priority: "high" },
   {
     name: "Exporting/Importing Documents",
@@ -13,24 +12,22 @@ const features = [
   { name: "Regex /patter/ handling", completed: false, priority: "medium" },
   { name: "AI query assistant", completed: false, priority: "medium" },
   { name: "Aggregation Pipeline", completed: false, priority: "low" },
+  { name: "Multiple tabs in main view", completed: true },
   {
     name: "Hash passwords in connection view",
     completed: true,
-    priority: "high",
   },
-  { name: "Multiple styles", completed: true, priority: "medium" },
+  { name: "Multiple styles", completed: true },
   {
     name: "Move autocomplete keys to json file, so that it can be easily modified",
     completed: true,
-    priority: "low",
   },
   {
     name: "Improve Content by adding other possibilities of viewing",
     completed: true,
-    priority: "medium",
   },
-  { name: "Help page", completed: true, priority: "medium" },
-  { name: "Query History", completed: true, priority: "high" },
+  { name: "Help page", completed: true },
+  { name: "Query History", completed: true },
 ];
 
 const Roadmap: React.FC = () => {
@@ -64,8 +61,10 @@ const Roadmap: React.FC = () => {
                         : "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
                     }`}
                   >
-                    {feature.priority.charAt(0).toUpperCase() +
-                      feature.priority.slice(1)}{" "}
+                    {feature.priority
+                      ? feature.priority.charAt(0).toUpperCase() +
+                        feature.priority.slice(1)
+                      : "Low"}{" "}
                     Priority
                   </span>
                 )}
