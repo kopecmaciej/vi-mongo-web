@@ -5,27 +5,27 @@ import { useState } from "react";
 
 const images = [
   {
-    src: "/vi-mongo/interface.png",
+    src: "/vi-mongo/interface.webp",
     description: "Intuitive interface",
     icon: <Zap className="w-6 h-6" />,
   },
   {
-    src: "/vi-mongo/quick-pick.png",
+    src: "/vi-mongo/quick-pick.webp",
     description: "Quick pick with intelligent highlighting",
     icon: <Search className="w-6 h-6" />,
   },
   {
-    src: "/vi-mongo/connection-list.png",
+    src: "/vi-mongo/connection-list.webp",
     description: "Manage multiple connections easily",
     icon: <Layout className="w-6 h-6" />,
   },
   {
-    src: "/vi-mongo/autocomplete.png",
+    src: "/vi-mongo/autocomplete.webp",
     description: "Fast query with autocomplete",
     icon: <Filter className="w-6 h-6" />,
   },
   {
-    src: "/vi-mongo/theme-switcher.png",
+    src: "/vi-mongo/theme-switcher.webp",
     description: "Theme Customization",
     icon: <Palette className="w-6 h-6" />,
   },
