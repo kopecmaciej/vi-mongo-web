@@ -1,8 +1,14 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react';
-import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
-import { ThemeAwarePre } from '@/components/Mdx/ThemeAwarePre';
+import { ThemeAwarePre } from "@/components/Mdx/ThemeAwarePre";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useEffect, useState } from "react";
 
 interface Release {
   tag_name: string;
@@ -10,9 +16,9 @@ interface Release {
 }
 
 const InstallationPage = () => {
-  const [os, setOs] = useState<string>('Linux');
-  const [arch, setArch] = useState<string>('x86_64');
-  const [version, setVersion] = useState<string>('');
+  const [os, setOs] = useState<string>("Linux");
+  const [arch, setArch] = useState<string>("x86_64");
+  const [version, setVersion] = useState<string>("");
   const [releases, setReleases] = useState<Release[]>([]);
 
   useEffect(() => {
@@ -21,23 +27,27 @@ const InstallationPage = () => {
 
   const fetchReleases = async () => {
     try {
-      const response = await fetch('https://api.github.com/repos/kopecmaciej/vi-mongo/releases');
+      const response = await fetch(
+        "https://api.github.com/repos/kopecmaciej/vi-mongo/releases"
+      );
       const data = await response.json();
-      setReleases(data.map((release: Release) => ({
-        tag_name: release.tag_name,
-        prerelease: release.prerelease
-      })));
+      setReleases(
+        data.map((release: Release) => ({
+          tag_name: release.tag_name,
+          prerelease: release.prerelease,
+        }))
+      );
       if (data.length > 0) {
         setVersion(data[0].tag_name);
       }
     } catch (error) {
-      console.error('Error fetching releases:', error);
+      console.error("Error fetching releases:", error);
     }
   };
 
   const handleOsChange = (value: string) => {
     setOs(value);
-    setArch('x86_64'); // Reset architecture to default when OS changes
+    setArch("x86_64"); // Reset architecture to default when OS changes
   };
 
   const handleArchChange = (value: string) => {
@@ -49,18 +59,19 @@ const InstallationPage = () => {
   };
 
   const getDownloadFileName = () => {
-    if (!os || !arch || !version) return '';
-    return `vi-mongo_${os}_${arch}.${os === 'Windows' ? 'zip' : 'tar.gz'}`;
+    if (!os || !arch || !version) return "";
+    return `vi-mongo_${os}_${arch}.${os === "Windows" ? "zip" : "tar.gz"}`;
   };
 
   const getDownloadUrl = () => {
-    if (!os || !arch || !version) return '';
+    if (!os || !arch || !version) return "";
     return `https://github.com/kopecmaciej/vi-mongo/releases/download/${version}/${getDownloadFileName()}`;
   };
 
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Installation</h1>
+
       <h2 className="text-xl mb-4">Select your OS, Processor, and Version</h2>
       <div className="mb-4">
         <label className="block mb-2">OS:</label>
@@ -68,7 +79,7 @@ const InstallationPage = () => {
           <SelectTrigger className="w-[180px] dark:bg-transparent border dark:border-lime-950">
             <SelectValue placeholder="Select OS" />
           </SelectTrigger>
-          <SelectContent >
+          <SelectContent>
             <SelectItem value="Darwin">macOS</SelectItem>
             <SelectItem value="Linux">Linux</SelectItem>
             <SelectItem value="Windows">Windows</SelectItem>
@@ -100,8 +111,12 @@ const InstallationPage = () => {
               {releases.map((release, index) => (
                 <SelectItem key={release.tag_name} value={release.tag_name}>
                   {release.tag_name}
-                  {release.prerelease ? ' (Pre-release)' : ''}
-                  {index === 0 && <span className="inline-flex text-green-700 text-xs ml-1">Latest</span>}
+                  {release.prerelease ? " (Pre-release)" : ""}
+                  {index === 0 && (
+                    <span className="inline-flex text-green-700 text-xs ml-1">
+                      Latest
+                    </span>
+                  )}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -111,7 +126,7 @@ const InstallationPage = () => {
       {os && arch && version && (
         <div>
           <h3 className="text-lg font-semibold mb-2">Download and Install</h3>
-          {os === 'Linux' && (
+          {os === "Linux" && (
             <>
               <h4 className="font-semibold">Using curl</h4>
               <ThemeAwarePre>
@@ -135,7 +150,7 @@ rm ${getDownloadFileName()}`}
               </ThemeAwarePre>
             </>
           )}
-          {os === 'Darwin' && (
+          {os === "Darwin" && (
             <ThemeAwarePre>
               <code className="language-bash">
                 {`curl -LO ${getDownloadUrl()}
@@ -146,7 +161,7 @@ rm ${getDownloadFileName()}`}
               </code>
             </ThemeAwarePre>
           )}
-          {os === 'Windows' && (
+          {os === "Windows" && (
             <ThemeAwarePre>
               <code className="language-powershell">
                 {`Invoke-WebRequest -Uri "${getDownloadUrl()}" -OutFile "${getDownloadFileName()}"
@@ -158,6 +173,23 @@ Remove-Item "${getDownloadFileName()}"`}
           )}
         </div>
       )}
+
+      {/* Add this new section */}
+      <div className="mb-6">
+        <h2 className="text-xl mb-2">Neovim Installation</h2>
+        <p>
+          If you want to install vi-mongo as a Neovim plugin, please visit the{" "}
+          <a
+            href="https://github.com/kopecmaciej/vi-mongo.nvim"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline"
+          >
+            vi-mongo.nvim repository
+          </a>{" "}
+          for installation instructions.
+        </p>
+      </div>
     </div>
   );
 };
