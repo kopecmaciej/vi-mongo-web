@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Filter, Layout, Palette, Search, Zap } from "lucide-react";
+import { Filter, Layout, Palette, Search, Zap, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -12,7 +12,7 @@ const images = [
   {
     src: "/vi-mongo/ai_prompt.webp",
     description: "AI Prompt",
-    icon: <Zap className="w-6 h-6" />,
+    icon: <MessageCircle className="w-6 h-6" />,
   },
   {
     src: "/vi-mongo/quick-pick.webp",
