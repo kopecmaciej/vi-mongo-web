@@ -10,6 +10,11 @@ const images = [
     icon: <Zap className="w-6 h-6" />,
   },
   {
+    src: "/vi-mongo/ai_prompt.webp",
+    description: "AI Prompt",
+    icon: <Zap className="w-6 h-6" />,
+  },
+  {
     src: "/vi-mongo/quick-pick.webp",
     description: "Quick pick with intelligent highlighting",
     icon: <Search className="w-6 h-6" />,
