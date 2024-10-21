@@ -3,15 +3,16 @@ import { CheckCircle2, Circle } from "lucide-react";
 import React from "react";
 
 const features = [
-  { name: "Managing Indexes", completed: false, priority: "high" },
+  { name: "Improve Index Management", completed: false, priority: "medium" },
   {
     name: "Exporting/Importing Documents",
     completed: false,
     priority: "medium",
   },
   { name: "Regex /patter/ handling", completed: false, priority: "medium" },
-  { name: "AI query assistant", completed: false, priority: "medium" },
   { name: "Aggregation Pipeline", completed: false, priority: "low" },
+  { name: "AI query assistant", completed: true },
+  { name: "Managing Indexes", completed: true },
   { name: "Multiple tabs in main view", completed: true },
   {
     name: "Hash passwords in connection view",
