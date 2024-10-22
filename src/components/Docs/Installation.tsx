@@ -156,7 +156,7 @@ rm ${getDownloadFileName()}`}
                 {`curl -LO ${getDownloadUrl()}
 tar -xzf ${getDownloadFileName()}
 chmod +x vi-mongo
-sudo mv vi-mongo /usr/bin
+sudo mv vi-mongo /opt
 rm ${getDownloadFileName()}`}
               </code>
             </ThemeAwarePre>
