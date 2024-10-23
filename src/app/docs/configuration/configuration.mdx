@@ -18,40 +18,64 @@ All configuration files are stored in the `~/.config/vimongo` directory (or the 
 The `config.yaml` file contains general settings for the application. Here's an overview of the main configuration options:
 
 ```yaml
-version: "1.0.0"
+version: 1.0.0
 log:
-  path: "/tmp/vi-mongo.log"
-  level: "info"
-  prettyPrint: true
-debug: false
+    path: /tmp/vi-mongo.log
+    level: info
+    prettyPrint: true
 editor:
   command: ""
   env: "EDITOR"
 showConnectionPage: true
 showWelcomePage: false
-currentConnection: ""
-currentStyle: default.yaml
+currentConnection: sample-mongo
 connections:
-  - name: "Local"
-    url: "mongodb://localhost:27017"
-    host: "localhost"
-    port: 27017
-    database: "test"
-    username: ""
-    password: ""
-    timeout: 10
+    - url: mongodb://localhost:27017
+      host: localhost
+      port: 27017
+      database: ""
+      username: ""
+      password: ""
+      name: localhost
+      timeout: 5
+    - url: ""
+      host: localhost
+      port: 2717
+      database: ""
+      username: ""
+      password: ""
+      name: sample-mongo
+      timeout: 5
+styles:
+    betterSymbols: true
+    currentStyle: default.yaml
 ```
 
 ### Key Configuration Options:
 
+- `version`: The version of the configuration file
 - `log`: Logging settings (path, level, and pretty printing)
-- `debug`: Enable/disable debug mode
-- `editor`: External editor settings
+- `editor`: External editor settings (command and environment variable)
 - `showConnectionPage`: Show the connection page on startup
 - `showWelcomePage`: Show the welcome page on startup
 - `currentConnection`: The name of the current active connection
-- `currentStyle`: The name of the file containing the current style settings
 - `connections`: List of MongoDB connections
+- `styles`: Styling options
+  - `betterSymbols`: Enable or disable improved symbols
+  - `currentStyle`: The name of the file containing the current style settings
+
+### Connections
+
+Each connection in the `connections` list has the following properties:
+
+- `url`: The MongoDB connection URL (can be empty if using individual connection details)
+- `host`: The hostname of the MongoDB server
+- `port`: The port number for the MongoDB server
+- `database`: The name of the default database (can be empty)
+- `username`: The username for authentication (can be empty)
+- `password`: The password for authentication (can be empty)
+- `name`: A unique name for the connection
+- `timeout`: The connection timeout in seconds
 
 To add a new connection, you can either use the UI or manually add an entry to the `connections` list in the `config.yaml` file.
 
