@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface Release {
@@ -28,14 +29,14 @@ const InstallationPage = () => {
   const fetchReleases = async () => {
     try {
       const response = await fetch(
-        "https://api.github.com/repos/kopecmaciej/vi-mongo/releases"
+        "https://api.github.com/repos/kopecmaciej/vi-mongo/releases",
       );
       const data = await response.json();
       setReleases(
         data.map((release: Release) => ({
           tag_name: release.tag_name,
           prerelease: release.prerelease,
-        }))
+        })),
       );
       if (data.length > 0) {
         setVersion(data[0].tag_name);
@@ -47,7 +48,7 @@ const InstallationPage = () => {
 
   const handleOsChange = (value: string) => {
     setOs(value);
-    setArch("x86_64"); // Reset architecture to default when OS changes
+    setArch("x86_64");
   };
 
   const handleArchChange = (value: string) => {
@@ -174,20 +175,25 @@ Remove-Item "${getDownloadFileName()}"`}
         </div>
       )}
 
-      {/* Add this new section */}
       <div className="mb-6">
         <h2 className="text-xl mb-2">Neovim Installation</h2>
         <p>
           If you want to install vi-mongo as a Neovim plugin, please visit the{" "}
-          <a
+          <Link
             href="https://github.com/kopecmaciej/vi-mongo.nvim"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500 hover:underline"
           >
             vi-mongo.nvim repository
-          </a>{" "}
+          </Link>{" "}
           for installation instructions.
+        </p>
+
+        <h2 className="text-xl mb-2">Extra Icons</h2>
+        <p>
+          To handle extra icons that are avaliable by default, install font
+          `noto-fonts` or `ttf-symbola` for installation instructions.
         </p>
       </div>
     </div>
