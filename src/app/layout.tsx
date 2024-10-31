@@ -15,6 +15,14 @@ export const metadata: Metadata = {
   title: "Vi Mongo - TUI for MongoDB",
   description:
     "Vi Mongo is a fast and efficient TUI for MongoDB database management, designed for developers who love to work in the terminal.",
+  keywords: [
+    "mongodb",
+    "tui",
+    "client",
+    "cli",
+    "database",
+    "management",
+  ],
   openGraph: {
     title: "Vi Mongo - TUI for MongoDB",
     description:

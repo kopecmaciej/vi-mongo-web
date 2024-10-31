@@ -193,7 +193,9 @@ Remove-Item "${getDownloadFileName()}"`}
         <h2 className="text-xl mb-2">Extra Icons</h2>
         <p>
           To handle extra icons that are avaliable by default, install font
-          `noto-fonts` or `ttf-symbola` for installation instructions.
+          `noto-fonts` or `ttf-symbola`. Optionally, just replace icons with
+          those avaliable on your os, more about it in [styles
+          configuration](https://www.vi-mongo.com/docs/configuration#styling-configuration)
         </p>
       </div>
     </div>
