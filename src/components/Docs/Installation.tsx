@@ -194,8 +194,15 @@ Remove-Item "${getDownloadFileName()}"`}
         <p>
           To handle extra icons that are avaliable by default, install font
           `noto-fonts` or `ttf-symbola`. Optionally, just replace icons with
-          those avaliable on your os, more about it in [styles
-          configuration](https://www.vi-mongo.com/docs/configuration#styling-configuration)
+          those avaliable on your os, more about it in{" "}
+          <Link
+            href="https://www.vi-mongo.com/docs/configuration#styling-configuration"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline"
+          >
+            configuration
+          </Link>
         </p>
       </div>
     </div>
