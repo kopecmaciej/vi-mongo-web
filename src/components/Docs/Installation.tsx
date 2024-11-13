@@ -38,7 +38,10 @@ const InstallationPage = () => {
           prerelease: release.prerelease,
         })),
       );
-      if (data.length > 0) {
+      const latestStableRelease = data.find((release: Release) => !release.prerelease);
+      if (latestStableRelease) {
+        setVersion(latestStableRelease.tag_name);
+      } else if (data.length > 0) {
         setVersion(data[0].tag_name);
       }
     } catch (error) {
@@ -109,17 +112,21 @@ const InstallationPage = () => {
               <SelectValue placeholder="Select Version" />
             </SelectTrigger>
             <SelectContent className="max-h-[130px] overflow-y-auto">
-              {releases.map((release, index) => (
-                <SelectItem key={release.tag_name} value={release.tag_name}>
-                  {release.tag_name}
-                  {release.prerelease ? " (Pre-release)" : ""}
-                  {index === 0 && (
-                    <span className="inline-flex text-green-700 text-xs ml-1">
-                      Latest
-                    </span>
-                  )}
-                </SelectItem>
-              ))}
+              {releases.map((release, index) => {
+                const isLatestStable = !release.prerelease &&
+                  releases.findIndex(r => !r.prerelease) === index;
+                return (
+                  <SelectItem key={release.tag_name} value={release.tag_name}>
+                    {release.tag_name}
+                    {release.prerelease ? " (Pre-release)" : ""}
+                    {isLatestStable && (
+                      <span className="inline-flex text-green-700 text-xs ml-1">
+                        Latest
+                      </span>
+                    )}
+                  </SelectItem>
+                );
+              })}
             </SelectContent>
           </Select>
         </div>
