@@ -193,8 +193,24 @@ const MainPage = () => {
             />
           </motion.div>
         </section>
-      </div>
-    </div>
+
+        <section>
+          <div className="flex justify-center">
+            <Image
+              src={`/vi-mongo/autocomplete_laptop.webp`}
+              alt="Autocomplete laptop"
+              width={2400}
+              height={1350}
+              quality={100}
+              priority
+              loading="eager"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
+              className="w-full h-auto max-w-[1920px] mx-auto"
+            />
+          </div>
+        </section>
+      </div >
+    </div >
   );
 };
 
