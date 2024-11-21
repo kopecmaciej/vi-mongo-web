@@ -76,7 +76,15 @@ const InstallationPage = () => {
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Installation</h1>
 
-      <h2 className="text-xl mb-4">Select your OS, Processor, and Version</h2>
+      <div className="mb-6">
+        <h2 className="text-xl mb-4">Arch Linux (AUR)</h2>
+        <p className="mb-4">If you're using Arch Linux, you can install vi-mongo directly from AUR:</p>
+        <ThemeAwarePre>
+          <code className="language-bash">yay -S vi-mongo</code>
+        </ThemeAwarePre>
+      </div>
+
+      <h2 className="text-xl mb-4">Manual Installation</h2>
       <div className="mb-4">
         <label className="block mb-2">OS:</label>
         <Select value={os} onValueChange={handleOsChange}>
