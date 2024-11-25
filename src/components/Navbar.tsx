@@ -166,10 +166,6 @@ export const Navbar = () => {
           </div>
         </div>
         <div className="flex items-center space-x-4 max-md:space-x-2">
-          <div className="flex items-center text-green-500">
-            <AlertCircle className="w-4 h-4 mr-1" />
-            <span className="text-sm font-medium">Alpha Version</span>
-          </div>
           {pathname.startsWith("/docs") && <ThemeToggle />}
           <Button variant="outline" size="icon" asChild>
             <Link
