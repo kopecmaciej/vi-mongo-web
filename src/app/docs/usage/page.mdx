@@ -27,6 +27,19 @@ Vi Mongo uses three main configuration files:
 2. `[style].yaml`: UI styling configuration in the `styles` directory
 3. `keybindings.json`: Keyboard shortcuts configuration
 
+### Database Visibility Settings
+
+If you're unable to see certain databases or collections, you may need to adjust the authorization settings in your `config.yaml`:
+
+```yaml
+options:
+  authorizedDatabases: false    # Set to false to see all databases
+  authorizedCollections: false  # Set to false to see all collections
+```
+
+These options control whether Vi Mongo only shows databases and collections that the authenticated user has explicit permissions for. Setting them to `false` will show all available databases and collections, which can be useful for troubleshooting visibility issues.
+For more information go to [listCollections](https://www.mongodb.com/docs/manual/reference/command/listCollections/) and [listDatabases](https://www.mongodb.com/docs/manual/reference/command/listDatabases/)
+
 For detailed configuration instructions, visit the [Configuration Guide](/docs/configuration).
 
 ## Troubleshooting
