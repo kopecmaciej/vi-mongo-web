@@ -9,38 +9,187 @@ vi-mongo
 
 ## Key Shortcuts
 
-In any moment you can press `?` to see the help page with all available shortcuts. Keybindings are mostly inspired by [Vim](https://www.vim.org/), but some of them are costumized for efficiency.
+In any moment you can press `?` to see the help page with all available shortcuts. Keybindings are mostly inspired by [Vim](https://www.vim.org/), but some of them are customized for efficiency.
 
-## Resizing Terminal
+### Essential Shortcuts
 
-Resizing the terminal while running Vi Mongo should work fine, as it's based on [tview](https://github.com/rivo/tview) library which is fully rezisable, but if you encounter any issues, please file an issue on [GitHub](https://github.com/kopecmaciej/vi-mongo/issues).
+- `?` - Toggle full-screen help
+- `Ctrl+C`, `q` - Close application
+- `Ctrl+O` - Open connection page
+- `Ctrl+T` - Toggle style change modal
+- `Ctrl+A` - Show AI query interface
+- `Ctrl+S` - Show server info
+- `Alt+o` - Show server info
+- `Tab` / `Ctrl+L` - Focus next component
+- `Backtab` / `Ctrl+H` - Focus previous component
 
-## Configuration
+## Navigation and Views
 
-All configuration files will be stored in the `~/.config/vi-mongo` directory, but it depends on the system settings as the environment variable `XDG_CONFIG_HOME` can be set to different directories. For more information, refer to the [XDG Base Directory](https://github.com/adrg/xdg?tab=readme-ov-file#xdg-base-directory).
+Vi Mongo offers multiple views and navigation patterns:
 
-### Configuration Files
+### Main Views
 
-Vi Mongo uses three main configuration files:
+- **Connection View** - Manage MongoDB connections
+- **Database Tree** - Browse databases and collections
+- **Content View** - View and manipulate documents
 
-1. `config.yaml`: General application settings
-2. `[style].yaml`: UI styling configuration in the `styles` directory
-3. `keybindings.json`: Keyboard shortcuts configuration
+### Content Display Modes
 
-### Database Visibility Settings
+Press `f` in the Content view to cycle through different document display modes:
 
-If you're unable to see certain databases or collections, you may need to adjust the authorization settings in your `config.yaml`:
+1. **Table View** - Documents displayed in a tabular format
+2. **JSON View** - Documents displayed in formatted JSON
+3. **Single Line View** - Documents displayed as compact JSON strings
 
-```yaml
-options:
-  authorizedDatabases: false    # Set to false to see all databases
-  authorizedCollections: false  # Set to false to see all collections
+### Document Interaction
+
+- `p` or `Enter` - Quick peek at document
+- `P` - Full page peek
+- `E` - Edit document
+- `D` - Duplicate document
+- `d` - Delete document
+- `c` - Copy highlighted content
+- `C` - Copy entire document
+
+## Modal Windows
+
+Vi Mongo uses several modal windows for different operations:
+
+### Theme Changing Modal (`Ctrl+T`)
+
+The theme changing modal allows you to select different visual styles:
+
+1. Navigate through available themes with arrow keys
+2. Press `Enter` to apply the selected theme
+3. Press `Esc` or `Ctrl+T` again to exit without changing
+
+### Query Options Modal (`Alt+o`)
+
+This modal provides advanced options for document querying:
+
+1. **Projection** - Specify fields to include/exclude in the results
+2. **Limit** - Set the maximum number of documents to return
+3. **Skip** - Number of documents to skip before starting to return
+
+Press `Apply` to confirm settings or `Cancel` to dismiss.
+
+### AI Query Modal (`Ctrl+A`)
+
+The AI assistant helps you create MongoDB queries:
+
+1. Select an AI model from the dropdown
+2. Enter your query request in natural language
+3. Press `Ask LLM` to generate a MongoDB query
+4. Press `Apply Query` to use the generated query
+
+> Note: This feature requires API keys for OpenAI or Anthropic to be set in your environment variables.
+
+### Document Peeker
+
+When peeking at documents:
+
+- `g` - Move to top
+- `G` - Move to bottom
+- `c` - Copy highlighted
+- `C` - Copy only value
+- `F` - Toggle full screen
+- `p`, `P` - Exit peeker
+
+### Query/Filter Bar (`/`)
+
+Toggle the query bar to filter documents:
+
+- `Ctrl+Y` - Show query history
+- `Ctrl+D` - Clear input
+- `Ctrl+V` - Paste from clipboard
+
+## Advanced Features
+
+### Column Management
+
+- `S` - Sort by current column
+- `H` - Hide current column
+- `Ctrl+R` - Reset hidden columns
+
+### Pagination
+
+- `n` - Next page
+- `b` - Previous page
+- `]` - Next document
+- `[` - Previous document
+
+### Database Operations
+
+- `E` - Expand all nodes in database tree
+- `W` - Collapse all nodes
+- `A` - Add new collection
+- `D` - Delete collection
+- `R` - Rename collection
+
+## Connection Management
+
+The connection page allows you to configure MongoDB connections:
+
+1. **Connection List** - Left side shows saved connections
+   - `Enter` or `Space` - Select connection
+   - `D` - Delete selected connection
+   - `Ctrl+L` or `Ctrl+Right` - Focus on form
+
+2. **Connection Form** - Right side for editing connection details
+   - `Ctrl+S` or `Enter` - Save connection
+   - `Ctrl+H` or `Ctrl+Left` - Focus connection list
+
+## Working with Documents
+
+### Document Views
+
+The content view allows you to interact with documents in different ways:
+
+- **Table View**: Provides column-based view with data types indicated
+- **JSON View**: Shows the complete formatted JSON structure
+- **Single Line View**: Compact representation of documents
+
+### Document Editing
+
+When editing documents:
+
+1. Changes are made in your default text editor (defined by the `EDITOR` env variable or in config)
+2. File is saved in JSON format
+3. Document is validated before saving to MongoDB
+4. Special MongoDB types like ObjectID, Date, etc. are preserved
+
+### Query Building
+
+The query bar accepts standard MongoDB query syntax:
+
+```json
+{ "name": { "$regex": "^John", "$options": "i" } }
 ```
 
-These options control whether Vi Mongo only shows databases and collections that the authenticated user has explicit permissions for. Setting them to `false` will show all available databases and collections, which can be useful for troubleshooting visibility issues.
-For more information go to [listCollections](https://www.mongodb.com/docs/manual/reference/command/listCollections/) and [listDatabases](https://www.mongodb.com/docs/manual/reference/command/listDatabases/)
+You can also use the AI Query feature (`Ctrl+A`) to generate queries using natural language.
 
-For detailed configuration instructions, visit the [Configuration Guide](/docs/configuration).
+### Sorting Documents
+
+The sort bar (`s`) accepts MongoDB sort syntax:
+
+```json
+{ "age": 1 }
+```
+You can also quickly sort by a column by pressing `S` when the column is selected.
+
+### Projection
+
+To show specific fields:
+
+```json
+{ "name": 1, "surname": 1 }
+```
+or to hide given field
+
+```json
+{ "_id": 0, "name": 0 }
+```  
+Rember that you cannot combine both `0` and `1` in one projection.
 
 ## Troubleshooting
 
@@ -53,6 +202,10 @@ Possible issues:
 - General performance issues (for very large databases and collections)
 - Regex search not working the same as in MongoDB documentation (eg, `/pattern/` will not work as expected, use `{ "$regex": "pattern", "$options": "i" }` instead). Fix listed in the [Roadmap](/docs/roadmap)
 - MongoDB types are not yet properly tested so have in mind that some types like `BSONSymbol` or `Code` can be misssing or not displayed properly.
+
+## Resizing Terminal
+
+Resizing the terminal while running Vi Mongo should work fine, as it's based on [tview](https://github.com/rivo/tview) library which is fully rezisable, but if you encounter any issues, please file an issue on [GitHub](https://github.com/kopecmaciej/vi-mongo/issues).
 
 ## Additional Resources
 

@@ -6,143 +6,490 @@ Vi Mongo uses a flexible configuration system that allows you to customize vario
 
 Vi Mongo uses three main configuration files:
 
-1. `config.yaml`: General application settings
-2. `[style].yaml`: UI styling configuration in `styles` directory
-3. `keybindings.json`: Keyboard shortcuts configuration
+1. **config.yaml** - Main configuration file
+2. **keybindings.json** - Custom key mappings
+3. **styles/*.yaml** - Theme configuration files
 
-All configuration files are stored in the `~/.config/vi-mongo` directory (or the directory specified by the `XDG_CONFIG_HOME` environment variable).
+All configuration files are stored in the vi-mongo configuration directory:
 
-## General Configuration
+- On Unix: `~/.config/vi-mongo/`
+- On macOS: `~/Library/Application Support/vi-mongo/`
+- On Windows: `%APPDATA%\vi-mongo\`
+
+or the directory specified by the `XDG_CONFIG_HOME` environment variable.
+
+## Main Configuration
 ---
 
-The `config.yaml` file contains general settings for the application. Here's an overview of the main configuration options:
+The main configuration file `config.yaml` contains the following sections:
+
+### General Settings
 
 ```yaml
-version: 1.0.0
+version: "1.0.0"
+showConnectionPage: true
+showWelcomePage: true
+currentConnection: "local"
+```
+
+- `version`: Configuration file version
+- `showConnectionPage`: Show connection page on startup (true/false)
+- `showWelcomePage`: Show welcome page on startup (true/false)
+- `currentConnection`: Name of the default MongoDB connection to use
+
+### Log Settings
+
+```yaml
 log:
-    path: /tmp/vi-mongo.log
-    level: info
-    prettyPrint: true
+  path: "/tmp/vi-mongo.log"
+  level: "info"
+  prettyPrint: true
+```
+
+- `path`: Path to the log file
+- `level`: Log level (debug, info, warn, error)
+- `prettyPrint`: Format logs for better readability
+
+### Editor Settings
+
+```yaml
 editor:
   command: ""
   env: "EDITOR"
-showConnectionPage: true
-showWelcomePage: false
-currentConnection: sample-mongo
-connections:
-    - url: mongodb://localhost:27017
-      host: localhost
-      port: 27017
-      database: ""
-      username: ""
-      password: ""
-      name: localhost
-      timeout: 5
-    - url: ""
-      host: localhost
-      port: 2717
-      database: ""
-      username: ""
-      password: ""
-      name: sample-mongo
-      timeout: 5
-styles:
-    betterSymbols: true
-    currentStyle: default.yaml
 ```
 
-### Key Configuration Options:
+- `command`: Custom command to use for editing documents
+- `env`: Environment variable to use for editor command (defaults to `EDITOR`)
 
-- `version`: The version of the configuration file
-- `log`: Logging settings (path, level, and pretty printing)
-- `editor`: External editor settings (command and environment variable)
-- `showConnectionPage`: Show the connection page on startup
-- `showWelcomePage`: Show the welcome page on startup
-- `currentConnection`: The name of the current active connection
-- `connections`: List of MongoDB connections
-- `styles`: Styling options
-  - `betterSymbols`: Enable or disable improved symbols
-  - `currentStyle`: The name of the file containing the current style settings
+### Styles Settings
 
-### Connections
+```yaml
+styles:
+  betterSymbols: true
+  currentStyle: "default.yaml"
+```
 
-Each connection in the `connections` list has the following properties:
+- `betterSymbols`: Use improved symbols for UI elements (requires proper font support)
+- `currentStyle`: Currently active style file
 
-- `url`: The MongoDB connection URL (can be empty if using individual connection details)
-- `host`: The hostname of the MongoDB server
-- `port`: The port number for the MongoDB server
-- `database`: The name of the default database (can be empty)
-- `username`: The username for authentication (can be empty)
-- `password`: The password for authentication (can be empty)
-- `name`: A unique name for the connection
-- `timeout`: The connection timeout in seconds
+### MongoDB Connections
 
-To add a new connection, you can either use the UI or manually add an entry to the `connections` list in the `config.yaml` file.
+```yaml
+connections:
+  - name: "local"
+    url: "mongodb://localhost:27017"
+    host: "localhost"
+    port: 27017
+    database: "test"
+    username: ""
+    password: ""
+    timeout: 10
+    options:
+      authorizedDatabases: true
+      authorizedCollections: true
+      limit: 50
+```
+
+Each connection has the following properties:
+
+- `name`: Unique name for the connection
+- `url`: MongoDB connection string (alternative to host/port)
+- `host`: MongoDB server hostname
+- `port`: MongoDB server port
+- `database`: Default database to connect to
+- `username`: MongoDB username
+- `password`: MongoDB password
+- `timeout`: Connection timeout in seconds
+- `options` (Optional):
+  - `authorizedDatabases`: Only show databases the user is authorized to access (more here [Mongodb List Databases](https://www.mongodb.com/docs/manual/reference/command/listDatabases/#command-fields))
+  - `authorizedCollections`: Only show collections the user is authorized to access
+  - `limit`: Default document limit per page - this will be set as default for all collections for given connection. To overtwrite this set diffrent limit in `QueryOptions` modal.
+
+## Keybindings Configuration 
+---
+
+Vi Mongo supports extensive keyboard customization via the `keybindings.json` file. Each key binding consists of key combinations and descriptions.
+
+Keys can be specified in two ways:
+- `keys`: Key combinations using Tcell naming (like `Ctrl+C`, `Alt+o`)
+- `runes`: Simple character keys (like `q`, `E`, `?`)
+
+### Global Keybindings
+
+```json
+"global": {
+  "closeApp": {
+    "keys": ["Ctrl+C"],
+    "runes": ["q"],
+    "description": "Close application"
+  },
+  "toggleFullScreenHelp": {
+    "runes": ["?"],
+    "description": "Toggle full screen help"
+  },
+  "openConnection": {
+    "keys": ["Ctrl+O"],
+    "description": "Open connection page"
+  },
+  "showStyleModal": {
+    "keys": ["Ctrl+T"],
+    "description": "Toggle style change modal"
+  }
+}
+```
+
+### Main Navigation Keybindings
+
+```json
+"main": {
+  "focusNext": {
+    "keys": ["Ctrl+L", "Tab"],
+    "description": "Focus next component"
+  },
+  "focusPrevious": {
+    "keys": ["Ctrl+H", "Backtab"],
+    "description": "Focus previous component"
+  },
+  "hideDatabase": {
+    "keys": ["Ctrl+N"],
+    "description": "Hide databases"
+  },
+  "showServerInfo": {
+    "keys": ["Ctrl+S"],
+    "description": "Show server info"
+  },
+  "showAIQuery": {
+    "keys": ["Ctrl+A"],
+    "description": "Show AI prompt"
+  }
+}
+```
+
+### Database Keybindings
+
+```json
+"databases": {
+  "filterBar": {
+    "runes": ["/"],
+    "description": "Focus filter bar"
+  },
+  "expandAll": {
+    "runes": ["E"],
+    "description": "Expand all"
+  },
+  "collapseAll": {
+    "runes": ["W"],
+    "description": "Collapse all"
+  },
+  "addCollection": {
+    "runes": ["A"],
+    "description": "Add collection"
+  },
+  "deleteCollection": {
+    "runes": ["D"],
+    "description": "Delete collection"
+  },
+  "renameCollection": {
+    "runes": ["R"],
+    "description": "Rename collection"
+  }
+}
+```
+
+### Content Keybindings
+
+```json
+"content": {
+  "switchView": {
+    "runes": ["f"],
+    "description": "Change view"
+  },
+  "peekDocument": {
+    "runes": ["p"],
+    "keys": ["Enter"],
+    "description": "Quick peek"
+  },
+  "fullPagePeek": {
+    "runes": ["P"],
+    "description": "Full page peek"
+  },
+  "addDocument": {
+    "runes": ["A"],
+    "description": "Add new"
+  },
+  "editDocument": {
+    "runes": ["E"],
+    "description": "Edit"
+  },
+  "duplicateDocument": {
+    "runes": ["D"],
+    "description": "Duplicate"
+  },
+  "deleteDocument": {
+    "runes": ["d"],
+    "description": "Delete"
+  },
+  "copyHighlight": {
+    "runes": ["c"],
+    "description": "Copy highlighted"
+  },
+  "copyDocument": {
+    "runes": ["C"],
+    "description": "Copy document"
+  },
+  "refresh": {
+    "runes": ["R"],
+    "description": "Refresh"
+  },
+  "toggleQueryBar": {
+    "runes": ["/"],
+    "description": "Toggle query bar"
+  },
+  "toggleSortBar": {
+    "runes": ["s"],
+    "description": "Toggle sort bar"
+  },
+  "sortByColumn": {
+    "runes": ["S"],
+    "description": "Sort by current column"
+  },
+  "hideColumn": {
+    "runes": ["H"],
+    "description": "Hide current column"
+  },
+  "resetHiddenColumns": {
+    "keys": ["Ctrl+R"],
+    "description": "Reset hidden columns"
+  },
+  "nextDocument": {
+    "runes": ["]"],
+    "description": "Next document"
+  },
+  "previousDocument": {
+    "runes": ["["],
+    "description": "Previous document"
+  },
+  "nextPage": {
+    "runes": ["n"],
+    "description": "Next page"
+  },
+  "previousPage": {
+    "runes": ["b"],
+    "description": "Previous page"
+  },
+  "toggleQueryOptions": {
+    "keys": ["Alt+o"],
+    "description": "Toggle query options"
+  }
+}
+```
+
+### Query Bar Keybindings
+
+```json
+"queryBar": {
+  "showHistory": {
+    "keys": ["Ctrl+Y"],
+    "description": "Show history"
+  },
+  "clearInput": {
+    "keys": ["Ctrl+D"],
+    "description": "Clear input"
+  },
+  "paste": {
+    "keys": ["Ctrl+V"],
+    "description": "Paste from clipboard"
+  }
+}
+```
+
+### Connection Form Keybindings
+
+```json
+"connectionForm": {
+  "saveConnection": {
+    "keys": ["Ctrl+S", "Enter"],
+    "description": "Save connection"
+  },
+  "focusList": {
+    "keys": ["Ctrl+H", "Ctrl+Left"],
+    "description": "Focus Connection List"
+  }
+}
+```
+
+### Connection List Keybindings
+
+```json
+"connectionList": {
+  "focusForm": {
+    "keys": ["Ctrl+L", "Ctrl+Right"],
+    "description": "Move focus to form"
+  },
+  "deleteConnection": {
+    "runes": ["D"],
+    "description": "Delete selected connection"
+  },
+  "setConnection": {
+    "keys": ["Enter", "Space"],
+    "description": "Set selected connection"
+  }
+}
+```
+
+### Document Peeker Keybindings
+
+```json
+"peeker": {
+  "moveToTop": {
+    "runes": ["g"],
+    "description": "Move to top"
+  },
+  "moveToBottom": {
+    "runes": ["G"],
+    "description": "Move to bottom"
+  },
+  "copyHighlight": {
+    "runes": ["c"],
+    "description": "Copy highlighted"
+  },
+  "copyValue": {
+    "runes": ["C"],
+    "description": "Copy only value"
+  },
+  "toggleFullScreen": {
+    "runes": ["F"],
+    "description": "Toggle full screen"
+  },
+  "exit": {
+    "runes": ["p", "P"],
+    "description": "Exit"
+  }
+}
+```
+
+### History Keybindings
+
+```json
+"history": {
+  "clearHistory": {
+    "runes": ["C"],
+    "description": "Clear history"
+  },
+  "acceptEntry": {
+    "keys": ["Enter", "Space"],
+    "description": "Accept entry"
+  },
+  "closeHistory": {
+    "keys": ["Esc", "Ctrl+Y"],
+    "description": "Close history"
+  }
+}
+```
+
+### Index Management Keybindings
+
+```json
+"index": {
+  "exitModal": {
+    "keys": ["Esc"],
+    "description": "Exit modal"
+  },
+  "addIndex": {
+    "runes": ["A"],
+    "description": "Add index"
+  },
+  "deleteIndex": {
+    "runes": ["D"],
+    "description": "Delete index"
+  }
+}
+```
+
+### AI Query Keybindings
+
+```json
+"aiQuery": {
+  "exitAIQuery": {
+    "keys": ["Esc"],
+    "description": "Exit AI query"
+  },
+  "clearPrompt": {
+    "keys": ["Ctrl+D"],
+    "description": "Clear prompt"
+  }
+}
+```
+### Customizing Keybindings:
+
+- `keys`: An array of key combinations (e.g., "Ctrl+H", "Enter")
+- `runes`: An array of single characters (e.g., "?", "a")
+- `description`: A brief description of the action
 
 ## Styling Configuration
 ---
 
-The `styles` directory contains available styles that allow you to customize the appearance of Vi Mongo. Each style file is named after the style it represents (e.g., `default.yaml`, `dark-blue.yaml`, etc.).
+Vi Mongo supports theme customization via style files stored in the `styles/` directory. You can create and edit these files to customize the appearance of the application.
 
-Here's an example of the structure for a style file:
+### Global Styles
 
 ```yaml
 global:
   backgroundColor: "#0F172A"
+  contrastBackgroundColor: "#1E293B"
+  moreContrastBackgroundColor: "#387D44"
   textColor: "#E2E8F0"
   secondaryTextColor: "#FDE68A"
   borderColor: "#387D44"
   focusColor: "#4ADE80"
   titleColor: "#387D44"
   graphicsColor: "#387D44"
-
-welcome:
-  textColor: "#FDE68A"
-  formLabelColor: "#FDE68A"
-  formInputColor: "#E2E8F0"
-  formInputBackgroundColor: "#1E293B"
-
-# ... (other sections like connector, header, databases, content, etc.)
 ```
 
-You can customize colors using hex color codes. Make sure to keep the YAML structure intact when modifying the file.
+### Content Styles
 
-## Keybindings Configuration 
----
-
-The `keybindings.json` file allows you to customize keyboard shortcuts for various actions in Vi Mongo. The file is structured by different sections of the application. Here's an example:
-
-```json
-{
-  "global": {
-    "toggleFullScreenHelp": {
-      "runes": ["?"],
-      "description": "Toggle full screen help"
-    },
-    "openConnector": {
-      "keys": ["Ctrl+O"],
-      "description": "Open connector"
-    }
-  },
-  "main": {
-    "toggleFocus": {
-      "keys": ["Tab", "Backtab"],
-      "description": "Focus next view"
-    },
-    "focusDatabase": {
-      "keys": ["Ctrl+H"],
-      "description": "Focus databases"
-    }
-  },
-  // ... (other sections like database, content, queryBar, etc.)
-}
+```yaml
+content:
+  statusTextColor: "#FDE68A"
+  headerRowColor: "#1E293B"
+  columnKeyColor: "#FDE68A"
+  columnTypeColor: "#387D44"
+  cellTextColor: "#387D44"
+  selectedRowColor: "#4ADE80"
 ```
 
-### Customizing Keybindings:
+### Document Peeker Styles
 
-- `keys`: An array of key combinations (e.g., "Ctrl+H", "Enter")
-- `runes`: An array of single characters (e.g., "?", "a")
-- `description`: A brief description of the action
+```yaml
+docPeeker:
+  keyColor: "#387D44"
+  valueColor: "#E2E8F0"
+  bracketColor: "#FDE68A"
+  highlightColor: "#3A4963"
+```
+
+### Database Tree Styles
+
+```yaml
+databases:
+  nodeTextColor: "#387D44"
+  leafTextColor: "#E2E8F0"
+  nodeSymbolColor: "#FDE68A"
+  leafSymbolColor: "#387D44"
+  openNodeSymbol: "▼"
+  closedNodeSymbol: "▶"
+  leafSymbol: "◆"
+```
+## Other Notes
+
+### Environment Variables
+
+Vi Mongo uses the following environment variables:
+
+1. **EDITOR**: Default editor to use for editing documents (can be overridden in config)
+2. **ENV**: When set to "vi-dev", development mode is enabled
+3. **OPENAI_API_KEY**: API key for OpenAI services (AI features)
+4. **ANTHROPIC_API_KEY**: API key for Anthropic services (Claude AI features)
 
 ### Known Keybinding Issues
 

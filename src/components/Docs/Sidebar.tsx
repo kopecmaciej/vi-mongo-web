@@ -24,14 +24,15 @@ export const SidebarItems = [
     icon: Settings,
     children: [
       {
-        name: "General Configuration",
-        href: "/docs/configuration#general-configuration",
+        name: "Main Configuration",
+        href: "/docs/configuration#main-configuration",
       },
-      { name: "Styling", href: "/docs/configuration#styling-configuration" },
       {
         name: "Keybindings",
         href: "/docs/configuration#keybindings-configuration",
       },
+      { name: "Styling", href: "/docs/configuration#styling-configuration" },
+      { name: "Other Notes", href: "/docs/configuration#other-notes" },
     ],
   },
   { name: "Roadmap", href: "/docs/roadmap", icon: Map },
