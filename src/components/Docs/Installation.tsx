@@ -207,7 +207,7 @@ Remove-Item "${getDownloadFileName()}"`}
 
         <h2 className="text-xl mb-2">Extra Icons</h2>
         <p>
-          To handle extra icons that are avaliable by default, install icons
+          To handle extra icons that are available by default, install icons
           from{" "}
           <Link
             href="https://www.nerdfonts.com/cheat-sheet"
@@ -218,7 +218,7 @@ Remove-Item "${getDownloadFileName()}"`}
             Nerd Fonts
           </Link>.
           Optionally, just replace icons with
-          those avaliable on your os, more about it in{" "}
+          those available on your OS, more about it in{" "}
           <Link
             href="https://www.vi-mongo.com/docs/configuration#styling-configuration"
             target="_blank"
