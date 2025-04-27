@@ -110,6 +110,10 @@ Each connection has the following properties:
 
 Vi Mongo supports extensive keyboard customization via the `keybindings.json` file. Each key binding consists of key combinations and descriptions.
 
+**IMPORTANT NOTE**
+When configuring keybindings, the `Ctrl` key must be specified with an uppercase letter, e.g., `Ctrl+R`, but in practice, it will be handled as lowercase `Ctrl+r`. This is a quirk of the `tview` and `tcell` libraries.
+For the Alt key, both uppercase and lowercase letters are handled correctly and work as expected, so `Alt+t` and `Alt+T` are diffrent keys.
+
 Keys can be specified in two ways:
 - `keys`: Key combinations using Tcell naming (like `Ctrl+C`, `Alt+o`)
 - `runes`: Simple character keys (like `q`, `E`, `?`)
