@@ -87,6 +87,7 @@ connections:
     options:
       authorizedDatabases: true
       authorizedCollections: true
+      alwaysConfirmActions: true
       limit: 50
 ```
 
@@ -103,6 +104,7 @@ Each connection has the following properties:
 - `options` (Optional):
   - `authorizedDatabases`: Only show databases the user is authorized to access (more here [Mongodb List Databases](https://www.mongodb.com/docs/manual/reference/command/listDatabases/#command-fields))
   - `authorizedCollections`: Only show collections the user is authorized to access
+  - `alwaysConfirmActions`: If set to false, actions such as deletion or duplication without confirmation are possible (defaults to `Alt+d` and `Alt+D` respectively).
   - `limit`: Default document limit per page - this will be set as default for all collections for given connection. To overtwrite this set diffrent limit in `QueryOptions` modal.
 
 ## Keybindings Configuration 
