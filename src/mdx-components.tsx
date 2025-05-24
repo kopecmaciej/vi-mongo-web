@@ -25,7 +25,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     code: ({ children, ...props }) => (
       <code
-        className=" text-[#047097] dark:text-[#4ec9b0] px-1 py-0.5 rounded"
+        className="text-[#047097] dark:text-[#4ec9b0] px-1 py-0.5 rounded"
         {...props}
       >
         {children}

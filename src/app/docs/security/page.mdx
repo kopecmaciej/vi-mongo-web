@@ -1,0 +1,168 @@
+# Security
+
+Vi Mongo provides optional password encryption to secure your MongoDB connection credentials stored in the configuration file. This feature helps protect sensitive information even if your configuration files are compromised.
+
+## Encryption Key Setup
+
+### Generating an Encryption Key
+
+For now Vi Mongo can generate a secure encryption key using the `--gen-key` flag:
+
+```bash
+vi-mongo --gen-key
+```
+
+This command will output a randomly generated 256-bit encryption key in hexadecimal format, along with instructions on how to use it:
+
+```
+Encryption key successfully generated for vi-mongo:
+a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456
+
+Please store this key securely using one of the following methods:
+- Set it as an environment variable: VI_MONGO_SECRET_KEY
+- Save it to a file and reference the path in the config file
+  or use the CLI option: vi-mongo --key-path=/path/to/key
+```
+
+### Using Environment Variable
+
+The most common approach is to set the encryption key as an environment variable.
+You have several options for managing this securely:
+
+#### Permanent Setup (easy way)
+
+For persistent access across all sessions, add the variable to your shell profile:
+
+```bash
+# Add to ~/.bashrc, ~/.zshrc
+export VI_MONGO_SECRET_KEY="your-generated-key-here"
+```
+
+```fish
+# ~/.config/fish/config.fish or fish_variables
+set -gx VI_MONGO_SECRET_KEY "your-generated-key-here"
+
+```
+Then reload your shell configuration:
+
+```bash
+source ~/.bashrc  # or ~/.zshrc or config.fish
+```
+
+Or you can store it in some `.env`, add proper permissions and source it, which can be consider more secure.
+
+#### Session-only Usage
+
+For temporary use without permanent storage, set the variable only when running Vi Mongo:
+
+```bash
+VI_MONGO_SECRET_KEY="your-generated-key-here" vi-mongo
+```
+
+This approach ensures the key is only available during the application runtime and doesn't persist in your shell history or environment.
+
+### Using Key File
+
+Alternatively, you can store the key in a file and reference it in two ways:
+
+#### Via Command Line Flag
+
+```bash
+vi-mongo --key-path=/path/to/your/keyfile
+```
+
+#### Via Configuration File
+
+Add the key file path to your `config.yaml`:
+
+```yaml
+encryptionKeyPath: "/path/to/your/keyfile"
+```
+
+The key file should contain only the encryption key (no additional formatting):
+
+```
+a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456
+```
+
+## How Encryption Works
+
+### With Encryption Key
+
+When an encryption key is available (via environment variable or file):
+
+1. **Adding Connections**: Passwords are automatically encrypted before being stored in the configuration file
+2. **Using Connections**: Passwords are decrypted in memory when connecting to MongoDB
+3. **Configuration Storage**: Only encrypted passwords are stored in `config.yaml`
+
+### Without Encryption Key
+
+When no encryption key is configured:
+
+1. **Adding Connections**: Passwords are stored in plain text in the configuration file
+2. **Using Connections**: Passwords are used directly without decryption
+3. **Security Risk**: Credentials are visible to anyone with access to the configuration file
+
+## Security Best Practices
+
+### File Permissions
+
+If using a key file, ensure it has restrictive permissions:
+
+```bash
+# Create the key file
+echo "your-generated-key-here" > ~/.config/vi-mongo/encryption.key
+
+# Set restrictive permissions (owner read-only)
+chmod 600 ~/.config/vi-mongo/encryption.key
+```
+
+## Migration Between Encrypted and Unencrypted
+
+### Adding Encryption to Existing Connections
+
+If you have existing unencrypted connections and want to add encryption:
+
+1. Generate an encryption key: `vi-mongo --gen-key`
+2. Set up the key (environment variable or file)
+3. Delete and re-add your connections - they will be automatically encrypted
+
+## Connection Compatibility
+
+### Important Compatibility Rules
+
+- **Encrypted connections**: Connections added with encryption enabled cannot be used without the same encryption key
+- **Unencrypted connections**: Connections added without encryption work regardless of encryption key presence but only if added as `uri`
+- **Mixed configurations are supported**: You can have both encrypted and unencrypted connections in the same configuration file
+
+### Troubleshooting Encryption Issues
+
+If you encounter authentication failures when connecting:
+
+1. **Verify the encryption key**: Ensure the same key used to encrypt the password is available
+2. **Check key format**: Ensure the key file contains only the hexadecimal key with no extra whitespace or formatting
+3. **Environment variables**: Verify the `VI_MONGO_SECRET_KEY` environment variable is set correctly in current shell session
+4. **Key file permissions**: Ensure Vi Mongo can read the key file (check file permissions)
+
+## Configuration Example
+
+Example `config.yaml` with encryption key path:
+
+```yaml
+version: "1.0.0"
+encryptionKeyPath: "/home/user/.config/vi-mongo/encryption.key"
+
+connections:
+  - name: "production"
+    host: "prod.mongodb.com"
+    port: 27017
+    username: "app_user"
+    password: "a1b2c3...encrypted...789xyz"  # This will be encrypted
+    database: "myapp"
+    
+  - name: "local"
+    host: "localhost"
+    port: 27017
+    database: "test"
+    # No password = no encryption needed
+```
