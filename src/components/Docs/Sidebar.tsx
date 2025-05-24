@@ -12,6 +12,7 @@ import {
   Home,
   Settings,
   Map,
+  Shield,
 } from "lucide-react";
 
 export const SidebarItems = [
@@ -37,6 +38,7 @@ export const SidebarItems = [
       { name: "Default Styles", href: "/docs/configuration/styles" },
     ],
   },
+  { name: "Security", href: "/docs/security", icon: Shield },
   { name: "Roadmap", href: "/docs/roadmap", icon: Map },
 ];
 

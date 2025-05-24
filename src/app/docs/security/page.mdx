@@ -29,7 +29,7 @@ Please store this key securely using one of the following methods:
 The most common approach is to set the encryption key as an environment variable.
 You have several options for managing this securely:
 
-#### Permanent Setup
+#### Permanent Setup (easy way)
 
 For persistent access across all sessions, add the variable to your shell profile:
 
@@ -117,22 +117,6 @@ echo "your-generated-key-here" > ~/.config/vi-mongo/encryption.key
 chmod 600 ~/.config/vi-mongo/encryption.key
 ```
 
-### Environment Variable Security
-
-When using environment variables:
-
-1. Avoid storing the key in shell history
-2. Use secure methods to set the environment variable
-3. Consider using a password manager or secrets management system
-4. Be cautious when sharing terminal sessions or screenshots
-
-### Key Storage Recommendations
-
-1. **Never commit encryption keys to version control**
-2. **Use different keys for different environments** (development, staging, production)
-3. **Regularly rotate encryption keys** and update stored connections
-4. **Backup your key securely** - losing it means losing access to encrypted connections
-
 ## Migration Between Encrypted and Unencrypted
 
 ### Adding Encryption to Existing Connections
@@ -147,8 +131,8 @@ If you have existing unencrypted connections and want to add encryption:
 
 ### Important Compatibility Rules
 
-- **Encrypted connections require the encryption key**: Connections added with encryption enabled cannot be used without the same encryption key
-- **Unencrypted connections work without keys**: Connections added without encryption work regardless of encryption key presence
+- **Encrypted connections**: Connections added with encryption enabled cannot be used without the same encryption key
+- **Unencrypted connections**: Connections added without encryption work regardless of encryption key presence but only if added as `uri`
 - **Mixed configurations are supported**: You can have both encrypted and unencrypted connections in the same configuration file
 
 ### Troubleshooting Encryption Issues

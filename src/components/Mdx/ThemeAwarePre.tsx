@@ -27,7 +27,7 @@ const Pre = ({ children, theme }: { children: React.ReactNode; theme?: string })
   const childrenArray = React.Children.toArray(children);
   const code = childrenArray[0] as React.ReactElement;
   const className = code.props.className || "";
-  const language = className.replace(/language-/, "");
+  const language = className.includes("language") ? className.replace(/language-/, "") : "";
   const codeText = code.props.children.trim();
   const [copied, setCopied] = React.useState(false);
 
@@ -40,7 +40,7 @@ const Pre = ({ children, theme }: { children: React.ReactNode; theme?: string })
 
   return (
     <TooltipProvider>
-      <div className="relative">
+      <div className="relative py-1">
         <div className="bg-zinc-200 dark:bg-[#212e22] text-gray-700 dark:text-gray-300 px-4 text-sm rounded-t-lg flex justify-between items-center">
           <span>{language}</span>
           <Tooltip>
@@ -50,7 +50,7 @@ const Pre = ({ children, theme }: { children: React.ReactNode; theme?: string })
               )}
               <Button
                 onClick={handleCopy}
-                className="bg-transparent text-green-900 hover:bg-zinc-300 dark:hover:bg-zinc-700"
+                className="bg-transparent shadow-none border-none text-green-900 hover:bg-transparent dark:hover:bg-transparent dark:hover:text-white hover:text-green-500"
                 size="sm"
               >
                 <Copy size={16} />
