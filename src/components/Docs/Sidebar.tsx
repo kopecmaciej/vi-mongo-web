@@ -33,6 +33,8 @@ export const SidebarItems = [
       },
       { name: "Styling", href: "/docs/configuration#styling-configuration" },
       { name: "Other Notes", href: "/docs/configuration#other-notes" },
+      { name: "Default Keybindings", href: "/docs/configuration/keybindings" },
+      { name: "Default Styles", href: "/docs/configuration/styles" },
     ],
   },
   { name: "Roadmap", href: "/docs/roadmap", icon: Map },

@@ -120,58 +120,7 @@ Keys can be specified in two ways:
 - `keys`: Key combinations using Tcell naming (like `Ctrl+C`, `Alt+o`)
 - `runes`: Simple character keys (like `q`, `E`, `?`)
 
-### Global Keybindings
-
-```json
-"global": {
-  "closeApp": {
-    "keys": ["Ctrl+C"],
-    "runes": ["q"],
-    "description": "Close application"
-  },
-  "toggleFullScreenHelp": {
-    "runes": ["?"],
-    "description": "Toggle full screen help"
-  },
-  "openConnection": {
-    "keys": ["Ctrl+O"],
-    "description": "Open connection page"
-  },
-  "showStyleModal": {
-    "keys": ["Ctrl+T"],
-    "description": "Toggle style change modal"
-  }
-}
-```
-
-### Main Navigation Keybindings
-
-```json
-"main": {
-  "focusNext": {
-    "keys": ["Ctrl+L", "Tab"],
-    "description": "Focus next component"
-  },
-  "focusPrevious": {
-    "keys": ["Ctrl+H", "Backtab"],
-    "description": "Focus previous component"
-  },
-  "hideDatabase": {
-    "keys": ["Ctrl+N"],
-    "description": "Hide databases"
-  },
-  "showServerInfo": {
-    "keys": ["Ctrl+S"],
-    "description": "Show server info"
-  },
-  "showAIQuery": {
-    "keys": ["Ctrl+A"],
-    "description": "Show AI prompt"
-  }
-}
-```
-
-### Database Keybindings
+### Examle keybidings
 
 ```json
 "databases": {
@@ -202,279 +151,23 @@ Keys can be specified in two ways:
 }
 ```
 
-### Content Keybindings
-
-```json
-"content": {
-  "switchView": {
-    "runes": ["f"],
-    "description": "Change view"
-  },
-  "peekDocument": {
-    "runes": ["p"],
-    "keys": ["Enter"],
-    "description": "Quick peek"
-  },
-  "fullPagePeek": {
-    "runes": ["P"],
-    "description": "Full page peek"
-  },
-  "addDocument": {
-    "runes": ["A"],
-    "description": "Add new"
-  },
-  "editDocument": {
-    "runes": ["E"],
-    "description": "Edit"
-  },
-  "duplicateDocument": {
-    "runes": ["D"],
-    "description": "Duplicate"
-  },
-  "deleteDocument": {
-    "runes": ["d"],
-    "description": "Delete"
-  },
-  "copyHighlight": {
-    "runes": ["c"],
-    "description": "Copy highlighted"
-  },
-  "copyDocument": {
-    "runes": ["C"],
-    "description": "Copy document"
-  },
-  "refresh": {
-    "runes": ["R"],
-    "description": "Refresh"
-  },
-  "toggleQueryBar": {
-    "runes": ["/"],
-    "description": "Toggle query bar"
-  },
-  "toggleSortBar": {
-    "runes": ["s"],
-    "description": "Toggle sort bar"
-  },
-  "sortByColumn": {
-    "runes": ["S"],
-    "description": "Sort by current column"
-  },
-  "hideColumn": {
-    "runes": ["H"],
-    "description": "Hide current column"
-  },
-  "resetHiddenColumns": {
-    "keys": ["Ctrl+R"],
-    "description": "Reset hidden columns"
-  },
-  "nextDocument": {
-    "runes": ["]"],
-    "description": "Next document"
-  },
-  "previousDocument": {
-    "runes": ["["],
-    "description": "Previous document"
-  },
-  "nextPage": {
-    "runes": ["n"],
-    "description": "Next page"
-  },
-  "previousPage": {
-    "runes": ["b"],
-    "description": "Previous page"
-  },
-  "toggleQueryOptions": {
-    "keys": ["Alt+o"],
-    "description": "Toggle query options"
-  }
-}
-```
-
-### Query Bar Keybindings
-
-```json
-"queryBar": {
-  "showHistory": {
-    "keys": ["Ctrl+Y"],
-    "description": "Show history"
-  },
-  "clearInput": {
-    "keys": ["Ctrl+D"],
-    "description": "Clear input"
-  },
-  "paste": {
-    "keys": ["Ctrl+V"],
-    "description": "Paste from clipboard"
-  }
-}
-```
-
-### Connection Form Keybindings
-
-```json
-"connectionForm": {
-  "saveConnection": {
-    "keys": ["Ctrl+S", "Enter"],
-    "description": "Save connection"
-  },
-  "focusList": {
-    "keys": ["Ctrl+H", "Ctrl+Left"],
-    "description": "Focus Connection List"
-  }
-}
-```
-
-### Connection List Keybindings
-
-```json
-"connectionList": {
-  "focusForm": {
-    "keys": ["Ctrl+L", "Ctrl+Right"],
-    "description": "Move focus to form"
-  },
-  "deleteConnection": {
-    "runes": ["D"],
-    "description": "Delete selected connection"
-  },
-  "setConnection": {
-    "keys": ["Enter", "Space"],
-    "description": "Set selected connection"
-  }
-}
-```
-
-### Document Peeker Keybindings
-
-```json
-"peeker": {
-  "moveToTop": {
-    "runes": ["g"],
-    "description": "Move to top"
-  },
-  "moveToBottom": {
-    "runes": ["G"],
-    "description": "Move to bottom"
-  },
-  "copyHighlight": {
-    "runes": ["c"],
-    "description": "Copy highlighted"
-  },
-  "copyValue": {
-    "runes": ["C"],
-    "description": "Copy only value"
-  },
-  "toggleFullScreen": {
-    "runes": ["F"],
-    "description": "Toggle full screen"
-  },
-  "exit": {
-    "runes": ["p", "P"],
-    "description": "Exit"
-  }
-}
-```
-
-### History Keybindings
-
-```json
-"history": {
-  "clearHistory": {
-    "runes": ["C"],
-    "description": "Clear history"
-  },
-  "acceptEntry": {
-    "keys": ["Enter", "Space"],
-    "description": "Accept entry"
-  },
-  "closeHistory": {
-    "keys": ["Esc", "Ctrl+Y"],
-    "description": "Close history"
-  }
-}
-```
-
-### Index Management Keybindings
-
-```json
-"index": {
-  "exitModal": {
-    "keys": ["Esc"],
-    "description": "Exit modal"
-  },
-  "addIndex": {
-    "runes": ["A"],
-    "description": "Add index"
-  },
-  "deleteIndex": {
-    "runes": ["D"],
-    "description": "Delete index"
-  }
-}
-```
-
-### AI Query Keybindings
-
-```json
-"aiQuery": {
-  "exitAIQuery": {
-    "keys": ["Esc"],
-    "description": "Exit AI query"
-  },
-  "clearPrompt": {
-    "keys": ["Ctrl+D"],
-    "description": "Clear prompt"
-  }
-}
-```
 ### Customizing Keybindings:
 
 - `keys`: An array of key combinations (e.g., "Ctrl+H", "Enter")
 - `runes`: An array of single characters (e.g., "?", "a")
 - `description`: A brief description of the action
 
+### Default Keybidigs
+To see all default keybindings as yaml go to [Default Keybindings](/docs/configuration/keybindings)
+
 ## Styling Configuration
 ---
 
-Vi Mongo supports theme customization via style files stored in the `styles/` directory. You can create and edit these files to customize the appearance of the application.
+Vi Mongo supports theme customization via style files stored in the `styles/` directory. 
+You can create and edit these files to customize the appearance of the application. 
+Each theme can be changed using `showStyleModal` key which defaults to `Ctrl+T`
 
-### Global Styles
-
-```yaml
-global:
-  backgroundColor: "#0F172A"
-  contrastBackgroundColor: "#1E293B"
-  moreContrastBackgroundColor: "#387D44"
-  textColor: "#E2E8F0"
-  secondaryTextColor: "#FDE68A"
-  borderColor: "#387D44"
-  focusColor: "#4ADE80"
-  titleColor: "#387D44"
-  graphicsColor: "#387D44"
-```
-
-### Content Styles
-
-```yaml
-content:
-  statusTextColor: "#FDE68A"
-  headerRowColor: "#1E293B"
-  columnKeyColor: "#FDE68A"
-  columnTypeColor: "#387D44"
-  cellTextColor: "#387D44"
-  selectedRowColor: "#4ADE80"
-```
-
-### Document Peeker Styles
-
-```yaml
-docPeeker:
-  keyColor: "#387D44"
-  valueColor: "#E2E8F0"
-  bracketColor: "#FDE68A"
-  highlightColor: "#3A4963"
-```
-
-### Database Tree Styles
+### Example Styles
 
 ```yaml
 databases:
@@ -482,10 +175,16 @@ databases:
   leafTextColor: "#E2E8F0"
   nodeSymbolColor: "#FDE68A"
   leafSymbolColor: "#387D44"
-  openNodeSymbol: "▼"
-  closedNodeSymbol: "▶"
-  leafSymbol: "◆"
+  openNodeSymbol: " "
+  closedNodeSymbol: " "
+  leafSymbol: "󰈙 "
 ```
+Style keys are divided into Color and Symbol. Colors use hexadecimal values, while symbols use ASCII or Unicode characters.
+Default icons shown above can be downloaded from [Nerd Fonts](https://www.nerdfonts.com/cheat-sheet)
+
+### Default Styles
+To see all default styles as yaml go to [Default Styles](/docs/configuration/styles)
+
 ## Other Notes
 
 ### Environment Variables
