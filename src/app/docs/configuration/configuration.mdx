@@ -75,6 +75,7 @@ styles:
 ### MongoDB Connections
 
 ```yaml
+encryptionKeyPath: "/some/route" #optional
 connections:
   - name: "local"
     url: "mongodb://localhost:27017"
@@ -90,6 +91,9 @@ connections:
       alwaysConfirmActions: true
       limit: 50
 ```
+
+- `encryptionKeyPath`: This is the path where encryption key can be stored (just plain key, nothing more).
+  This key will be use to encrypt/decrypt all connections
 
 Each connection has the following properties:
 
