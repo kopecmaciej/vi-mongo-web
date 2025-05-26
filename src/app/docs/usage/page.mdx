@@ -50,6 +50,13 @@ Press `f` in the Content view to cycle through different document display modes:
 - `d` - Delete document
 - `c` - Copy highlighted content
 - `C` - Copy entire document
+- `V` - Select current row for multiple selection*
+- `Esc` - Clear multiple selection**
+
+*Multiple selection allows to delete multiple documents at once, does not work in Json view
+**Works only if at least one row was selected
+
+**Selection Priority**: When documents are selected, delete operations will only affect selected documents. Delete operations on the document under cursor only work when nothing is selected
 
 ## Modal Windows
 
@@ -202,6 +209,7 @@ Possible issues:
 - General performance issues (for very large databases and collections)
 - Regex search not working the same as in MongoDB documentation (eg, `/pattern/` will not work as expected, use `{ "$regex": "pattern", "$options": "i" }` instead). Fix listed in the [Roadmap](/docs/roadmap)
 - MongoDB types are not yet properly tested so have in mind that some types like `BSONSymbol` or `Code` can be misssing or not displayed properly.
+- If you added a connection with an encryption key enabled and try to use it without the key available, you may encounter (AuthenticationFailed) Authentication failed. errors due to the encrypted password being used directly without decryption
 
 ## Resizing Terminal
 
