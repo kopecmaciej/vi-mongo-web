@@ -77,6 +77,15 @@ const InstallationPage = () => {
       <h1 className="text-2xl font-bold mb-4">Installation</h1>
 
       <div className="mb-6">
+        <h2 className="text-xl mb-4">Homebrew</h2>
+        <p className="mb-4">If you're using macOS or Linux with Homebrew, you can install vi-mongo directly:</p>
+        <ThemeAwarePre>
+          <code className="language-bash">{`brew tap kopecmaciej/vi-mongo
+brew install vi-mongo`}</code>
+        </ThemeAwarePre>
+      </div>
+
+      <div className="mb-6">
         <h2 className="text-xl mb-4">Arch Linux (AUR)</h2>
         <p className="mb-4">If you're using Arch Linux, you can install vi-mongo directly from AUR:</p>
         <ThemeAwarePre>
