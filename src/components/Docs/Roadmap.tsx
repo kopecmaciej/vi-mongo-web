@@ -8,7 +8,7 @@ const features = [
     completed: false,
     priority: "medium",
   },
-  { name: "Regex /pattern/ handling", completed: false, priority: "medium" },
+  { name: "Regex /pattern/ handling", completed: true },
   { name: "Aggregation Pipeline", completed: false, priority: "low" },
   { name: "Improve Index Management", completed: true },
   { name: "AI query assistant", completed: true },

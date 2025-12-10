@@ -167,10 +167,32 @@ When editing documents:
 
 ### Query Building
 
-The query bar accepts standard MongoDB query syntax:
+The query bar accepts standard MongoDB query syntax, including regex literals and helper functions:
 
-```json
-{ "name": { "$regex": "^John", "$options": "i" } }
+**Using regex patterns:**
+```javascript
+// Case-insensitive search
+{ "name": /^john/i }
+
+// Email domain matching
+{ "email": /example\.com$/ }
+
+// Using regex with $in operator
+{ "status": { "$in": [/active/i, /pending/i] } }
+
+// Regex in arrays
+{ "tags": [/mongodb/i, /database/] }
+```
+
+**MongoDB helper functions:**
+```javascript
+// Date handling
+{ "createdAt": { "$gte": ISODate("2024-01-01") } }
+
+// Number types
+{ "count": NumberInt(42) }
+{ "bigNumber": NumberLong(9007199254740991) }
+{ "price": NumberDecimal("19.99") }
 ```
 
 You can also use the AI Query feature (`Ctrl+A`) to generate queries using natural language.
@@ -207,8 +229,7 @@ Possible issues:
 - Keybindings not working as expected (refer to [Configuration Guide](/docs/configuration))
 - Icons missing or not properly displayed - this is very common problem in terminal applications, either change them in the config file or install Nerd Font/Icons
 - General performance issues (for very large databases and collections)
-- Regex search not working the same as in MongoDB documentation (eg, `/pattern/` will not work as expected, use `{ "$regex": "pattern", "$options": "i" }` instead). Fix listed in the [Roadmap](/docs/roadmap)
-- MongoDB types are not yet properly tested so have in mind that some types like `BSONSymbol` or `Code` can be misssing or not displayed properly.
+- MongoDB types are not yet properly tested so have in mind that some types like `BSONSymbol` or `Code` can be missing or not displayed properly.
 - If you added a connection with an encryption key enabled and try to use it without the key available, you may encounter (AuthenticationFailed) Authentication failed. errors due to the encrypted password being used directly without decryption
 
 ## Resizing Terminal
