@@ -107,7 +107,9 @@ When no encryption key is configured:
 
 ### File Permissions
 
-If using a key file, ensure it has restrictive permissions:
+Vi Mongo writes all configuration files (`config.yaml`, `keybindings.yaml`, style files) with `0600` permissions (owner read/write only) automatically, so no manual `chmod` is needed for the main config.
+
+If using a key file, ensure it also has restrictive permissions:
 
 ```bash
 # Create the key file
@@ -116,6 +118,18 @@ echo "your-generated-key-here" > ~/.config/vi-mongo/encryption.key
 # Set restrictive permissions (owner read-only)
 chmod 600 ~/.config/vi-mongo/encryption.key
 ```
+
+### Avoiding Plaintext URIs in Config
+
+Instead of storing a full MongoDB URI directly in `config.yaml`, you can reference an environment variable:
+
+```yaml
+connections:
+  - name: "production"
+    url: "$MONGODB_URI"
+```
+
+The variable is expanded at connection time, so the actual URI is never written to disk. This makes it safe to commit your config file to version control.
 
 ## Migration Between Encrypted and Unencrypted
 
