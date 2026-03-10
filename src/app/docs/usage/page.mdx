@@ -17,6 +17,7 @@ At any moment you can press `?` to see the help page with all available shortcut
 - `Ctrl+C`, `q` - Close application
 - `Ctrl+O` - Open connection page
 - `Ctrl+T` - Toggle style change modal
+- `t` - Expand/collapse the header (shows all keybindings for the focused component)
 - `Alt+A` - Show AI query interface
 - `Ctrl+S` - Show server info
 - `Alt+o` - Toggle query options
@@ -32,10 +33,11 @@ Vi Mongo offers multiple views and navigation patterns:
 - **Connection View** - Manage MongoDB connections
 - **Database Tree** - Browse databases and collections
 - **Content View** - View and manipulate documents
+- **Aggregation View** - Build and run MongoDB aggregation pipelines
 
 ### Content Display Modes
 
-Press `f` in the Content view to cycle through different document display modes:
+Press `v` in the Content view to cycle through different document display modes:
 
 1. **Table View** - Documents displayed in a tabular format
 2. **JSON View** - Documents displayed in formatted JSON
@@ -43,11 +45,12 @@ Press `f` in the Content view to cycle through different document display modes:
 
 ### Document Interaction
 
-- `p` or `Enter` - Quick peek at document
-- `P` - Full page peek
-- `E` - Edit document
+- `o` or `Enter` - Quick peek at document
+- `O` - Full page peek
+- `e` - Inline edit (edit field value directly in the table)
+- `E` - Full document edit (opens in external editor)
 - `D` - Duplicate document
-- `d` - Delete document
+- `Ctrl+d` - Delete document
 - `c` - Copy highlighted content
 - `C` - Copy entire document
 - `V` - Select current row for multiple selection*
@@ -110,6 +113,51 @@ Toggle the query bar to filter documents:
 - `Ctrl+D` - Clear input
 - `Ctrl+V` - Paste from clipboard
 
+## Aggregation Pipelines
+
+Vi Mongo includes a built-in aggregation pipeline builder accessible as a tab alongside the Content and Index views.
+
+### Building a Pipeline
+
+The Aggregation view is split into two panels: **Stages** (top) and **Results** (bottom).
+
+**Stage management:**
+
+- `a` - Add a new pipeline stage
+- `e` - Edit the selected stage
+- `Ctrl+d` - Delete the selected stage
+- `J` / `K` - Move stage down / up (reorder)
+- `R` - Run the pipeline and display results
+- `C` - Clear all stages
+- `Ctrl+j` - Move focus to results
+
+Each stage uses standard MongoDB aggregation syntax, e.g. `{ $match: { status: "active" } }`. The input bar provides autocomplete for pipeline operators (`$match`, `$group`, `$sort`, `$lookup`, etc.) at the top level and for general operators inside nested braces.
+
+### Viewing Results
+
+- `v` - Toggle between **Table** and **JSON** view
+- `o` or `Enter` - Peek at the document under the cursor
+- `O` - Full-page peek
+- `c` - Copy the highlighted cell value
+- `C` - Copy the entire document
+- `Ctrl+j` - Move focus back to stages
+
+### Example Pipeline
+
+```javascript
+// Stage 1
+{ $match: { status: "active" } }
+
+// Stage 2
+{ $group: { _id: "$category", total: { $sum: "$price" } } }
+
+// Stage 3
+{ $sort: { total: -1 } }
+
+// Stage 4
+{ $limit: 10 }
+```
+
 ## Advanced Features
 
 ### Column Management
@@ -130,8 +178,10 @@ Toggle the query bar to filter documents:
 - `E` - Expand all nodes in database tree
 - `W` - Collapse all nodes
 - `A` - Add new collection
-- `D` - Delete collection
+- `Ctrl+d` - Delete collection
 - `R` - Rename collection
+- `/` - Focus database filter bar
+- `Ctrl+u` - Clear database filter
 
 ## Connection Management
 
@@ -139,7 +189,8 @@ The connection page allows you to configure MongoDB connections:
 
 1. **Connection List** - Left side shows saved connections
    - `Enter` or `Space` - Select connection
-   - `D` - Delete selected connection
+   - `E` - Edit selected connection
+   - `Ctrl+d` - Delete selected connection
    - `Ctrl+L` or `Ctrl+Right` - Focus on form
 
 2. **Connection Form** - Right side for editing connection details
@@ -158,7 +209,11 @@ The content view allows you to interact with documents in different ways:
 
 ### Document Editing
 
-When editing documents:
+Vi Mongo provides two editing modes:
+
+**Inline edit** (`e` in Table view) — edit an individual field value directly in the table without opening an external editor.
+
+**Full document edit** (`E`) — opens the entire document in your external editor:
 
 1. Changes are made in your default text editor (defined by the `EDITOR` env variable or in config)
 2. File is saved in JSON format

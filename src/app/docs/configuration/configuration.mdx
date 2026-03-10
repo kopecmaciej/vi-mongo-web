@@ -7,7 +7,7 @@ Vi Mongo uses a flexible configuration system that allows you to customize vario
 Vi Mongo uses three main configuration files:
 
 1. **config.yaml** - Main configuration file
-2. **keybindings.json** - Custom key mappings
+2. **keybindings.yaml** - Custom key mappings
 3. **styles/*.yaml** - Theme configuration files
 
 All configuration files are stored in the vi-mongo configuration directory:
@@ -111,58 +111,56 @@ Each connection has the following properties:
   - `alwaysConfirmActions`: If set to false, actions such as deletion or duplication without confirmation are possible (defaults to `Alt+d` and `Alt+D` respectively).
   - `limit`: Default document limit per page - this will be set as default for all collections for given connection. To overtwrite this set diffrent limit in `QueryOptions` modal.
 
-## Keybindings Configuration 
+## Keybindings Configuration
 ---
 
-Vi Mongo supports extensive keyboard customization via the `keybindings.json` file. Each key binding consists of key combinations and descriptions.
+Vi Mongo supports extensive keyboard customization via the `keybindings.yaml` file. Each key binding consists of key combinations and descriptions.
+
+> **Migration note**: If you have an older `keybindings.json` file, Vi Mongo will automatically migrate it to `keybindings.yaml` on startup and back up the original as `keybindings.json.bak`.
 
 **IMPORTANT NOTE**
-When configuring keybindings, the `Ctrl` key must be specified with an uppercase letter, e.g., `Ctrl+R`, but in practice, it will be handled as lowercase `Ctrl+r`. This is a quirk of the `tview` and `tcell` libraries.
-For the Alt key, both uppercase and lowercase letters are handled correctly and work as expected, so `Alt+t` and `Alt+T` are diffrent keys.
+When configuring keybindings, `Ctrl+<letter>` is case-insensitive — `Ctrl+L` and `Ctrl+l` behave identically.
+For the `Alt` key, both uppercase and lowercase letters are handled correctly, so `Alt+a` and `Alt+A` are different keys.
 
 Keys can be specified in two ways:
-- `keys`: Key combinations using Tcell naming (like `Ctrl+C`, `Alt+o`)
-- `runes`: Simple character keys (like `q`, `E`, `?`)
+- `keys`: Named or combo keys using Tcell naming (like `Ctrl+c`, `Alt+o`, `Enter`, `Esc`)
+- `runes`: Literal single characters, case-sensitive (like `q`, `E`, `?`)
 
-### Examle keybidings
+### Example keybindings
 
-```json
-"databases": {
-  "filterBar": {
-    "runes": ["/"],
-    "description": "Focus filter bar"
-  },
-  "expandAll": {
-    "runes": ["E"],
-    "description": "Expand all"
-  },
-  "collapseAll": {
-    "runes": ["W"],
-    "description": "Collapse all"
-  },
-  "addCollection": {
-    "runes": ["A"],
-    "description": "Add collection"
-  },
-  "deleteCollection": {
-    "runes": ["D"],
-    "description": "Delete collection"
-  },
-  "renameCollection": {
-    "runes": ["R"],
-    "description": "Rename collection"
-  }
-}
+```yaml
+databases:
+    filterBar:
+        runes: [/]
+        description: Focus filter bar
+    clearFilter:
+        keys: [Ctrl+u]
+        description: Clear filter
+    expandAll:
+        runes: [E]
+        description: Expand all
+    collapseAll:
+        runes: [W]
+        description: Collapse all
+    addCollection:
+        runes: [A]
+        description: Add collection
+    deleteCollection:
+        keys: [Ctrl+d]
+        description: Delete collection
+    renameCollection:
+        runes: [R]
+        description: Rename collection
 ```
 
 ### Customizing Keybindings:
 
-- `keys`: An array of key combinations (e.g., "Ctrl+H", "Enter")
-- `runes`: An array of single characters (e.g., "?", "a")
+- `keys`: An array of key combinations (e.g., `[Ctrl+h, Enter]`)
+- `runes`: An array of single characters (e.g., `[?, a]`)
 - `description`: A brief description of the action
 
-### Default Keybidigs
-To see all default keybindings as yaml go to [Default Keybindings](/docs/configuration/keybindings)
+### Default Keybindings
+To see all default keybindings go to [Default Keybindings](/docs/configuration/keybindings)
 
 ## Styling Configuration
 ---
@@ -199,6 +197,18 @@ Vi Mongo uses the following environment variables:
 2. **ENV**: When set to "vi-dev", development mode is enabled
 3. **OPENAI_API_KEY**: API key for OpenAI services (AI features)
 4. **ANTHROPIC_API_KEY**: API key for Anthropic services (Claude AI features)
+
+### Environment Variable URIs
+
+Connection URLs in `config.yaml` can reference environment variables directly, making it safe to commit config files to version control:
+
+```yaml
+connections:
+  - name: "production"
+    url: "$MONGODB_URI"
+```
+
+The variable is expanded at connection time, so the actual URI is never stored on disk.
 
 ### Known Keybinding Issues
 
