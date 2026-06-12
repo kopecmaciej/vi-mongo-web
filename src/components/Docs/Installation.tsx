@@ -17,7 +17,6 @@ interface Release {
 }
 
 const InstallationPage = () => {
-  const [os, setOs] = useState<string>("Linux");
   const [arch, setArch] = useState<string>("x86_64");
   const [version, setVersion] = useState<string>("");
   const [releases, setReleases] = useState<Release[]>([]);
@@ -49,27 +48,12 @@ const InstallationPage = () => {
     }
   };
 
-  const handleOsChange = (value: string) => {
-    setOs(value);
-    setArch("x86_64");
-  };
-
   const handleArchChange = (value: string) => {
     setArch(value);
   };
 
   const handleVersionChange = (value: string) => {
     setVersion(value);
-  };
-
-  const getDownloadFileName = () => {
-    if (!os || !arch || !version) return "";
-    return `vi-mongo_${os}_${arch}.${os === "Windows" ? "zip" : "tar.gz"}`;
-  };
-
-  const getDownloadUrl = () => {
-    if (!os || !arch || !version) return "";
-    return `https://github.com/kopecmaciej/vi-mongo/releases/download/${version}/${getDownloadFileName()}`;
   };
 
   return (
@@ -93,34 +77,28 @@ brew install vi-mongo`}</code>
         </ThemeAwarePre>
       </div>
 
-      <h2 className="text-xl mb-4">Manual Installation</h2>
+      <div className="mb-6">
+        <h2 className="text-xl mb-4">Install Script (Linux / macOS)</h2>
+        <p className="mb-4">The quickest way on Unix systems — auto-detects your OS and architecture:</p>
+        <ThemeAwarePre>
+          <code className="language-bash">{`curl -fsSL https://vi-mongo.com/install.sh | sh`}</code>
+        </ThemeAwarePre>
+        <p className="mt-2 text-sm text-gray-500">Pin to a specific version by setting <code>VI_MONGO_VERSION</code>, e.g. <code>VI_MONGO_VERSION=v0.2.3 curl -fsSL https://vi-mongo.com/install.sh | sh</code></p>
+      </div>
+
+      <h2 className="text-xl mb-4">Manual Installation (Windows)</h2>
       <div className="mb-4">
-        <label className="block mb-2">OS:</label>
-        <Select value={os} onValueChange={handleOsChange}>
+        <label className="block mb-2">Architecture:</label>
+        <Select value={arch} onValueChange={handleArchChange}>
           <SelectTrigger className="w-[180px] dark:bg-transparent border dark:border-lime-950">
-            <SelectValue placeholder="Select OS" />
+            <SelectValue placeholder="Select Architecture" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="Darwin">macOS</SelectItem>
-            <SelectItem value="Linux">Linux</SelectItem>
-            <SelectItem value="Windows">Windows</SelectItem>
+            <SelectItem value="arm64">ARM64</SelectItem>
+            <SelectItem value="x86_64">x86_64</SelectItem>
           </SelectContent>
         </Select>
       </div>
-      {os && (
-        <div className="mb-4">
-          <label className="block mb-2">Architecture:</label>
-          <Select value={arch} onValueChange={handleArchChange}>
-            <SelectTrigger className="w-[180px] dark:bg-transparent border dark:border-lime-950">
-              <SelectValue placeholder="Select Architecture" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="arm64">ARM64</SelectItem>
-              <SelectItem value="x86_64">x86_64</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      )}
       {releases.length > 0 && (
         <div className="mb-4">
           <label className="block mb-2">Version:</label>
@@ -148,56 +126,26 @@ brew install vi-mongo`}</code>
           </Select>
         </div>
       )}
-      {os && arch && version && (
-        <div>
-          <h3 className="text-lg font-semibold mb-2">Download and Install</h3>
-          {os === "Linux" && (
-            <>
-              <h4 className="font-semibold">Using curl</h4>
-              <ThemeAwarePre>
-                <code className="language-bash">
-                  {`curl -LO ${getDownloadUrl()}
-tar -xzf ${getDownloadFileName()}
-chmod +x vi-mongo
-sudo mv vi-mongo /usr/bin
-rm ${getDownloadFileName()}`}
-                </code>
-              </ThemeAwarePre>
-              <h4 className="font-semibold">Using wget</h4>
-              <ThemeAwarePre>
-                <code className="language-bash">
-                  {`wget ${getDownloadUrl()} &&
-tar -xzf ${getDownloadFileName()} &&
-chmod +x vi-mongo &&
-sudo mv vi-mongo /usr/bin &&
-rm ${getDownloadFileName()}`}
-                </code>
-              </ThemeAwarePre>
-            </>
-          )}
-          {os === "Darwin" && (
-            <ThemeAwarePre>
-              <code className="language-bash">
-                {`curl -LO ${getDownloadUrl()}
-tar -xzf ${getDownloadFileName()}
-chmod +x vi-mongo
-sudo mv vi-mongo /opt
-rm ${getDownloadFileName()}`}
-              </code>
-            </ThemeAwarePre>
-          )}
-          {os === "Windows" && (
-            <ThemeAwarePre>
-              <code className="language-powershell">
-                {`Invoke-WebRequest -Uri "${getDownloadUrl()}" -OutFile "${getDownloadFileName()}"
-Expand-Archive -Path "${getDownloadFileName()}" -DestinationPath "."
+      {arch && version && (
+        <div className="mb-6">
+          <ThemeAwarePre>
+            <code className="language-powershell">
+              {`Invoke-WebRequest -Uri "${`https://github.com/kopecmaciej/vi-mongo/releases/download/${version}/vi-mongo_Windows_${arch}.zip`}" -OutFile "vi-mongo_Windows_${arch}.zip"
+Expand-Archive -Path "vi-mongo_Windows_${arch}.zip" -DestinationPath "."
 Move-Item -Path "vi-mongo.exe" -Destination "C:\\Program Files\\vi-mongo"
-Remove-Item "${getDownloadFileName()}"`}
-              </code>
-            </ThemeAwarePre>
-          )}
+Remove-Item "vi-mongo_Windows_${arch}.zip"`}
+            </code>
+          </ThemeAwarePre>
         </div>
       )}
+
+      <div className="mb-6">
+        <h2 className="text-xl mb-4">Uninstall</h2>
+        <p className="mb-4">Remove the binary, config, and log file interactively:</p>
+        <ThemeAwarePre>
+          <code className="language-bash">{`curl -fsSL https://vi-mongo.com/uninstall.sh | sh`}</code>
+        </ThemeAwarePre>
+      </div>
 
       <div className="mb-6">
         <h2 className="text-xl mb-2">Neovim Installation</h2>

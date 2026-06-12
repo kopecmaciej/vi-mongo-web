@@ -88,8 +88,8 @@ export const Carousel = () => {
               <Image
                 src={images[currentIndex].src}
                 alt={`Feature ${currentIndex + 1}`}
-                layout="fill"
-                objectFit="contain"
+                fill
+                style={{ objectFit: "contain" }}
                 priority
               />
             </div>
