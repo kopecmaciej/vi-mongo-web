@@ -37,7 +37,9 @@ const InstallationPage = () => {
           prerelease: release.prerelease,
         })),
       );
-      const latestStableRelease = data.find((release: Release) => !release.prerelease);
+      const latestStableRelease = data.find(
+        (release: Release) => !release.prerelease,
+      );
       if (latestStableRelease) {
         setVersion(latestStableRelease.tag_name);
       } else if (data.length > 0) {
@@ -62,7 +64,10 @@ const InstallationPage = () => {
 
       <div className="mb-6">
         <h2 className="text-xl mb-4">Homebrew</h2>
-        <p className="mb-4">If you're using macOS or Linux with Homebrew, you can install vi-mongo directly:</p>
+        <p className="mb-4">
+          If you&#39;re using macOS or Linux with Homebrew, you can install
+          vi-mongo directly:
+        </p>
         <ThemeAwarePre>
           <code className="language-bash">{`brew tap kopecmaciej/vi-mongo
 brew install vi-mongo`}</code>
@@ -71,7 +76,10 @@ brew install vi-mongo`}</code>
 
       <div className="mb-6">
         <h2 className="text-xl mb-4">Arch Linux (AUR)</h2>
-        <p className="mb-4">If you're using Arch Linux, you can install vi-mongo directly from AUR:</p>
+        <p className="mb-4">
+          If you&#39;re using Arch Linux, you can install vi-mongo directly from
+          AUR:
+        </p>
         <ThemeAwarePre>
           <code className="language-bash">yay -S vi-mongo</code>
         </ThemeAwarePre>
@@ -79,11 +87,21 @@ brew install vi-mongo`}</code>
 
       <div className="mb-6">
         <h2 className="text-xl mb-4">Install Script (Linux / macOS)</h2>
-        <p className="mb-4">The quickest way on Unix systems — auto-detects your OS and architecture:</p>
+        <p className="mb-4">
+          The quickest way on Unix systems — auto-detects your OS and
+          architecture:
+        </p>
         <ThemeAwarePre>
           <code className="language-bash">{`curl -fsSL https://vi-mongo.com/install.sh | sh`}</code>
         </ThemeAwarePre>
-        <p className="mt-2 text-sm text-gray-500">Pin to a specific version by setting <code>VI_MONGO_VERSION</code>, e.g. <code>VI_MONGO_VERSION=v0.2.3 curl -fsSL https://vi-mongo.com/install.sh | sh</code></p>
+        <p className="mt-2 text-sm text-gray-500">
+          Pin to a specific version by setting <code>VI_MONGO_VERSION</code>,
+          e.g.{" "}
+          <code>
+            VI_MONGO_VERSION=v0.2.3 curl -fsSL https://vi-mongo.com/install.sh |
+            sh
+          </code>
+        </p>
       </div>
 
       <h2 className="text-xl mb-4">Manual Installation (Windows)</h2>
@@ -108,8 +126,9 @@ brew install vi-mongo`}</code>
             </SelectTrigger>
             <SelectContent className="max-h-[130px] overflow-y-auto">
               {releases.map((release, index) => {
-                const isLatestStable = !release.prerelease &&
-                  releases.findIndex(r => !r.prerelease) === index;
+                const isLatestStable =
+                  !release.prerelease &&
+                  releases.findIndex((r) => !r.prerelease) === index;
                 return (
                   <SelectItem key={release.tag_name} value={release.tag_name}>
                     {release.tag_name}
@@ -141,7 +160,9 @@ Remove-Item "vi-mongo_Windows_${arch}.zip"`}
 
       <div className="mb-6">
         <h2 className="text-xl mb-4">Uninstall</h2>
-        <p className="mb-4">Remove the binary, config, and log file interactively:</p>
+        <p className="mb-4">
+          Remove the binary, config, and log file interactively:
+        </p>
         <ThemeAwarePre>
           <code className="language-bash">{`curl -fsSL https://vi-mongo.com/uninstall.sh | sh`}</code>
         </ThemeAwarePre>
@@ -173,9 +194,9 @@ Remove-Item "vi-mongo_Windows_${arch}.zip"`}
             className="text-blue-500 hover:underline"
           >
             Nerd Fonts
-          </Link>.
-          Optionally, just replace icons with
-          those available on your OS, more about it in{" "}
+          </Link>
+          . Optionally, just replace icons with those available on your OS, more
+          about it in{" "}
           <Link
             href="https://www.vi-mongo.com/docs/configuration#styling-configuration"
             target="_blank"
@@ -186,7 +207,7 @@ Remove-Item "vi-mongo_Windows_${arch}.zip"`}
           </Link>
         </p>
       </div>
-    </div >
+    </div>
   );
 };
 
